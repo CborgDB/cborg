@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🔗 CborgDB Website
+    url: http://cborgdb.com
+    about: See the documentation on the website.
+  - name: 💬 Join us on Discord
+    url: https://discord.gg/WDxhUD92bf
+    about: Share with the CborgDB community.
