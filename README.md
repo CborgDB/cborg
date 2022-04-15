@@ -24,6 +24,7 @@ abenhlal@cborgdb:~/cborg$ gcc -o cborg src/cborg.c
 1) Run Cborg
 ```console
 abenhlal@cborgdb:~/cborg$ ./cborg
+CborgDB is running on port 30000.
 ```
 
 2) In another terminal
