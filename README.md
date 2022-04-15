@@ -1,5 +1,11 @@
 # cborg
 
+<p align="center">
+  <img src='docs/media/cborgdb.png?raw=true' width='70%'>
+</p>
+
+---
+
 CborgDB is 🚧 still under development 🚧 and will be a database management system.
 The database will be developed in C language and the project is open source on 🐙 GitHub.
 
