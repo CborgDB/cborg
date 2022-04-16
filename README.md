@@ -1,7 +1,7 @@
 # cborg
 
 <p align="center">
-  <img src='docs/media/cborgdb.png?raw=true' width='70%'>
+  <img src='docs/media/cborgdb.png?raw=true' width='80%'>
 </p>
 
 ---
@@ -16,14 +16,23 @@ The purpose of CborgDB is to learn how existing database management systems work
 ```console
 abenhlal@cborgdb:~$ git clone https://github.com/cborgdb/cborg.git
 abenhlal@cborgdb:~$ cd cborg
-abenhlal@cborgdb:~/cborg$ gcc -o cborg src/cborg.c
+abenhlal@cborgdb:~/cborg$ mkdir build
+abenhlal@cborgdb:~/cborg$ cd build
+abenhlal@cborgdb:~/cborg/build$ cmake ..
+abenhlal@cborgdb:~/cborg/build$ make
+```
+
+## 🏡 Install
+
+```console
+abenhlal@cborgdb:~/cborg/build$ make install
 ```
 
 ## ✨ Usage
 
 1) Run Cborg
 ```console
-abenhlal@cborgdb:~/cborg$ ./cborg
+abenhlal@cborgdb:~/cborg/build$ ./cborg
 CborgDB is running on port 30000.
 ```
 
@@ -35,6 +44,12 @@ Connected to localhost.
 Escape character is '^]'.
 Welcome to CborgDB !
 Connection closed by foreign host.
+```
+
+## 🚪🚶 Uninstall
+
+```console
+abenhlal@cborgdb:~/cborg/build$ make uninstall
 ```
 
 ## ✍️ Author
