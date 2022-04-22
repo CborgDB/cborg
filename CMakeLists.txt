@@ -12,6 +12,11 @@ file(GLOB_RECURSE SRC "${CMAKE_SOURCE_DIR}/src/*.c")
 include_directories(${CMAKE_SOURCE_DIR}/include)
 add_executable(cborg ${SRC})
 
+# TESTS
+include(CTest)
+add_executable(test_fs "${CMAKE_SOURCE_DIR}/tests/test_fs.c" "${CMAKE_SOURCE_DIR}/src/cb_fs.c")
+add_test(NAME test_fs COMMAND test_fs)
+
 # INSTALL CBORG
 install(TARGETS cborg DESTINATION ${CMAKE_INSTALL_BINDIR})
 
