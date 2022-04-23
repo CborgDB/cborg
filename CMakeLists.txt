@@ -24,6 +24,8 @@ add_executable(test_fs "${CMAKE_SOURCE_DIR}/tests/test_fs.c" "${CMAKE_SOURCE_DIR
 add_test(NAME test_fs COMMAND test_fs)
 add_executable(test_endianness "${CMAKE_SOURCE_DIR}/tests/test_endianness.c" "${CMAKE_SOURCE_DIR}/src/cb_endianness.c")
 add_test(NAME test_endianness COMMAND test_endianness)
+add_executable(test_cbor "${CMAKE_SOURCE_DIR}/tests/test_cbor.c" "${CMAKE_SOURCE_DIR}/src/cb_cbor.c" "${CMAKE_SOURCE_DIR}/src/cb_endianness.c")
+add_test(NAME test_cbor COMMAND test_cbor)
 
 # INSTALL CBORG
 install(TARGETS cborg DESTINATION ${CMAKE_INSTALL_BINDIR})
