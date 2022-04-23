@@ -4,6 +4,12 @@ project(cborg VERSION 0.1.0 LANGUAGES C)
 # BUILD
 set(CMAKE_C_FLAGS "-std=c99 -Wall -Wextra -pedantic")
 
+include(TestBigEndian)
+test_big_endian(IS_BIG_ENDIAN)
+if(IS_BIG_ENDIAN)
+    add_definitions(-DIS_BIG_ENDIAN)
+endif()
+
 # Include module
 include(GNUInstallDirs)
 
@@ -16,6 +22,8 @@ add_executable(cborg ${SRC})
 include(CTest)
 add_executable(test_fs "${CMAKE_SOURCE_DIR}/tests/test_fs.c" "${CMAKE_SOURCE_DIR}/src/cb_fs.c")
 add_test(NAME test_fs COMMAND test_fs)
+add_executable(test_endianness "${CMAKE_SOURCE_DIR}/tests/test_endianness.c" "${CMAKE_SOURCE_DIR}/src/cb_endianness.c")
+add_test(NAME test_endianness COMMAND test_endianness)
 
 # INSTALL CBORG
 install(TARGETS cborg DESTINATION ${CMAKE_INSTALL_BINDIR})
