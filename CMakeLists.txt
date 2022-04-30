@@ -3,7 +3,7 @@ project(cborg VERSION 0.1.0 LANGUAGES C)
 
 # BUILD
 set(CMAKE_C_FLAGS "-std=c99 -Wall -Wextra -pedantic")
-
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer")
 include(TestBigEndian)
 test_big_endian(IS_BIG_ENDIAN)
 if(IS_BIG_ENDIAN)
@@ -26,6 +26,8 @@ add_executable(test_endianness "${CMAKE_SOURCE_DIR}/tests/test_endianness.c" "${
 add_test(NAME test_endianness COMMAND test_endianness)
 add_executable(test_cb_cbor_int "${CMAKE_SOURCE_DIR}/tests/test_cb_cbor_int.c" "${CMAKE_SOURCE_DIR}/src/cb_cbor_int.c" "${CMAKE_SOURCE_DIR}/src/cb_endianness.c")
 add_test(NAME test_cb_cbor_int COMMAND test_cb_cbor_int)
+add_executable(test_cb_cbor_simple "${CMAKE_SOURCE_DIR}/tests/test_cb_cbor_simple.c" "${CMAKE_SOURCE_DIR}/src/cb_cbor_simple.c")
+add_test(NAME test_cb_cbor_simple COMMAND test_cb_cbor_simple)
 
 # INSTALL CBORG
 install(TARGETS cborg DESTINATION ${CMAKE_INSTALL_BINDIR})
