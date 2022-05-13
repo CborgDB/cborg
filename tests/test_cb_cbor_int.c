@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "cb_cbor.h"
+#include "cb_cbor_int.h"
 
 // INT
 void test_cb_cbor_encode_uint8() {
@@ -510,6 +510,14 @@ void test_cb_cbor_encode_negint() {
   assert(cb_cbor_encode_negint(UINT64_MAX, ev, 9) == 9);
 }
 
+void test_cb_cbor_get_uint() {
+
+}
+
+void test_cb_cbor_get_uint_size() {
+
+}
+
 // TODO: criterion or cmocka
 int main() {
   ///////////
@@ -529,6 +537,9 @@ int main() {
   test_cb_cbor_encode_negint32();
   test_cb_cbor_encode_negint64();
   test_cb_cbor_encode_negint();
+
+  test_cb_cbor_get_uint();
+  test_cb_cbor_get_uint_size();
 
   return EXIT_SUCCESS;
 }

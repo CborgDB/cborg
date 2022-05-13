@@ -4,9 +4,9 @@
  */
 
 #ifdef __linux__
-// To avoid error compilation on DT_DIR and DT_REG 
+// To avoid error compilation on DT_DIR and DT_REG
 // Warning d_type in entry is not supported by all filesystem types
-#define _GNU_SOURCE 
+#define _GNU_SOURCE
 #include <linux/limits.h> // PATH_MAX
 #endif
 
@@ -48,16 +48,13 @@ int cb_fs_rmdir(const char *dir_path) {
 }
 
 int cb_fs_touch(const char *path) {
-  int fd = open(path, O_WRONLY | O_CREAT , 0644);
+  int fd = open(path, O_WRONLY | O_CREAT, 0644);
   if (fd < 0)
     return -1;
-  close(fd);
-  return 0;
+  return close(fd);
 }
 
-int cb_fs_remove(const char *path) {
-  return unlink(path);
-}
+int cb_fs_remove(const char *path) { return unlink(path); }
 
 int cb_fs_dir_exists(const char *path) {
   struct stat stats;
@@ -68,3 +65,7 @@ int cb_fs_file_exists(const char *path) {
   struct stat stats;
   return stat(path, &stats) == 0 && S_ISREG(stats.st_mode);
 }
+
+int cb_fs_open(const char *path) { return open(path, O_RDWR | O_CREAT, 0644); }
+
+int cb_fs_close(int fd) { return close(fd); }

@@ -8,9 +8,12 @@
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <fcntl.h>
+#include <errno.h>
 
 #include "cb_fs.h"
 
+#define FAKE_FILE_OPEN "./fake_file_open"
 #define FAKE_DIRECTORY "./fake_directory"
 #define FAKE_FILE "./fake_directory/fake_file"
 #define FAKE_FILE_REMOVE "./fake_directory/fake_file_remove"
@@ -58,6 +61,17 @@ void test_cb_fs_rmdir() {
   assert(cb_fs_rmdir(FAKE_SUB_DIRECTORY_REMOVE) == 0);
 }
 
+void test_cb_fs_open_close() {
+  // test_cb_fs_open
+  int fd = cb_fs_open(FAKE_FILE_OPEN);
+  assert(fd != -1);
+  assert(fcntl(fd, F_GETFD) != -1);
+  
+  // test_cb_fs_close
+  close(fd);
+  assert(fcntl(fd, F_GETFD) == -1);
+}
+
 // TODO: criterion or cmocka
 int main() {
   init();
@@ -69,6 +83,7 @@ int main() {
   test_cb_fs_file_exists();
   test_cb_fs_remove();
   test_cb_fs_rmdir();
+  test_cb_fs_open_close();
 
   destroy();
 
