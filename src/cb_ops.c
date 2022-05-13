@@ -3,6 +3,8 @@
  *
  */
 
+#define _XOPEN_SOURCE 500
+
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
