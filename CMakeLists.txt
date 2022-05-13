@@ -28,6 +28,8 @@ add_executable(test_cb_cbor_int "${CMAKE_SOURCE_DIR}/tests/test_cb_cbor_int.c" "
 add_test(NAME test_cb_cbor_int COMMAND test_cb_cbor_int)
 add_executable(test_cb_cbor_simple "${CMAKE_SOURCE_DIR}/tests/test_cb_cbor_simple.c" "${CMAKE_SOURCE_DIR}/src/cb_cbor_simple.c")
 add_test(NAME test_cb_cbor_simple COMMAND test_cb_cbor_simple)
+add_executable(test_cb_ops "${CMAKE_SOURCE_DIR}/tests/test_cb_ops.c" "${CMAKE_SOURCE_DIR}/src/cb_ops.c" "${CMAKE_SOURCE_DIR}/src/cb_endianness.c" "${CMAKE_SOURCE_DIR}/src/cb_fs.c" "${CMAKE_SOURCE_DIR}/src/cb_cbor_int.c" "${CMAKE_SOURCE_DIR}/src/cb_cbor_simple.c")
+add_test(NAME test_cb_ops COMMAND test_cb_ops)
 
 # INSTALL CBORG
 install(TARGETS cborg DESTINATION ${CMAKE_INSTALL_BINDIR})
