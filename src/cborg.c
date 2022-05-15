@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2021 Adil Benhlal <abenhlal@cborgdb.com>
+ * Copyright (c) 2021-present Adil Benhlal <abenhlal@cborgdb.com>
  *
  */
 #include <stdio.h> // perror()
