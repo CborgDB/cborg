@@ -7,11 +7,14 @@
 #include <unistd.h>
 #include <sys/socket.h> // socket()
 #include <netinet/in.h> // sockaddr_in
-#include <arpa/inet.h> // htons() 
-
+#include <arpa/inet.h> // htons()
 #include <string.h> // strlen()
 
+#include "cb_opt.h"
+
 int main(int argc, char const *argv[]) {
+  cb_getopt(argc, argv);
+
   // Init server
   int fd;
   if ((fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {

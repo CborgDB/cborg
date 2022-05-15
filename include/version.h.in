@@ -1,0 +1,15 @@
+/**
+ * Copyright (c) 2021-present Adil Benhlal <abenhlal@cborgdb.com>
+ *
+ */
+
+#ifndef _VERSION_H
+#define _VERSION_H
+
+#define CBORGDB_VERSION_MAJOR @PROJECT_VERSION_MAJOR@
+#define CBORGDB_VERSION_MINOR @PROJECT_VERSION_MINOR@
+#define CBORGDB_VERSION_PATCH @PROJECT_VERSION_PATCH@
+
+#define CBORGDB_VERSION "@PROJECT_VERSION@"
+
+#endif // _VERSION_H

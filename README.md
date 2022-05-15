@@ -30,13 +30,45 @@ abenhlal@cborgdb:~/cborg/build$ make install
 
 ## ✨ Usage
 
-1) Run Cborg
+1) Version
+```console
+abenhlal@cborgdb:~/cborg/build$ ./cborg --version
+CborgDB v0.2.0
+
+Maintained by Adil Benhlal <a.benhlal@cborgdb.com>
+```
+
+2) Help
+
+- long option
+```console
+abenhlal@cborgdb:~/cborg/build$ ./cborg --help
+Usage:
+    ./cborg [options]
+
+Options:
+    -h, --help    Display this help
+    --version     Print the version of CborgDB
+```
+
+- short option
+```console
+abenhlal@cborgdb:~/cborg/build$ ./cborg -h
+Usage:
+    ./cborg [options]
+
+Options:
+    -h, --help    Display this help
+    --version     Print the version of CborgDB
+```
+
+2) Run Cborg
 ```console
 abenhlal@cborgdb:~/cborg/build$ ./cborg
 CborgDB is running on port 30000.
 ```
 
-2) In another terminal
+3) In another terminal
 ```console
 abenhlal@cborgdb:~$ telnet localhost 30000
 Trying 127.0.0.1...

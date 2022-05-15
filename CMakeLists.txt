@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
-project(cborg VERSION 0.1.0 LANGUAGES C)
+project(cborg VERSION 0.2.0 LANGUAGES C)
+
+configure_file(${CMAKE_SOURCE_DIR}/include/version.h.in ${CMAKE_BINARY_DIR}/include/version.h @ONLY)
 
 # BUILD
 set(CMAKE_C_FLAGS "-std=c99 -Wall -Wextra -pedantic")
@@ -15,7 +17,7 @@ include(GNUInstallDirs)
 
 # CBORG
 file(GLOB_RECURSE SRC "${CMAKE_SOURCE_DIR}/src/*.c")
-include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${CMAKE_SOURCE_DIR}/include ${CMAKE_BINARY_DIR}/include)
 add_executable(cborg ${SRC})
 
 # TESTS
