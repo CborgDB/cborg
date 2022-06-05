@@ -85,24 +85,24 @@ uint8_t cb_cbor_get_uint8(const uint8_t *item) {
 
 uint16_t cb_cbor_get_uint16(const uint8_t *item) {
 #ifdef IS_BIG_ENDIAN
-  return *(item+1);
+  return *((uint16_t*)(item+1));
 #else
-  return cb_bswap16(*(item+1));
+  return cb_bswap16(*((uint16_t*)(item+1)));
 #endif
 }
 
 uint32_t cb_cbor_get_uint32(const uint8_t *item) {
 #ifdef IS_BIG_ENDIAN
-  return *(item+1);
+  return *((uint32_t*)(item+1));
 #else
-  return cb_bswap32(*(item+1));
+  return cb_bswap32(*((uint32_t*)(item+1)));
 #endif
 }
 
 uint64_t cb_cbor_get_uint64(const uint8_t *item) {
 #ifdef IS_BIG_ENDIAN
-  return *(item+1);
+  return *((uint64_t*)(item+1));
 #else
-  return cb_bswap64(*(item+1));
+  return cb_bswap64(*((uint64_t*)(item+1)));
 #endif
 }
