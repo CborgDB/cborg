@@ -10,6 +10,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <string.h>
 
 #include "cb_fs.h"
 
@@ -20,14 +21,27 @@
 #define FAKE_SUB_DIRECTORY "./fake_directory/fake_sub_directory"
 #define FAKE_SUB_DIRECTORY_REMOVE "./fake_directory/fake_sub_directory_remove"
 #define FAKE_SUB_FILE "./fake_directory/fake_sub_directory/fake_sub_file"
+#define FAKE_DBS_DIRECTORY "./fake_dbs_directory"
+#define FAKE_DB_A_DIRECTORY "./fake_dbs_directory/db_a"
+#define FAKE_DB_B_DIRECTORY "./fake_dbs_directory/db_b"
+#define FAKE_COLLECTION_A_IN_DB_A "./fake_dbs_directory/db_a/coll_a"
+#define FAKE_COLLECTION_B_IN_DB_A "./fake_dbs_directory/db_a/coll_b"
 
 void init() {
   assert(cb_fs_mkdir(FAKE_DIRECTORY) == 0);
+
+  // dbs and collections for ls_dir and ls_file
+  assert(cb_fs_mkdir(FAKE_DBS_DIRECTORY) == 0);
+  assert(cb_fs_mkdir(FAKE_DB_A_DIRECTORY) == 0);
+  assert(cb_fs_mkdir(FAKE_DB_B_DIRECTORY) == 0);
+  assert(cb_fs_touch(FAKE_COLLECTION_A_IN_DB_A) == 0);
+  assert(cb_fs_touch(FAKE_COLLECTION_B_IN_DB_A) == 0);
 }
 
 // rmdir: recursively
 void destroy() {
   assert(cb_fs_rmdir(FAKE_DIRECTORY) == 0);
+  assert(cb_fs_rmdir(FAKE_DBS_DIRECTORY) == 0);
 }
 
 void test_cb_fs_mkdir() {
@@ -70,6 +84,25 @@ void test_cb_fs_open_close() {
   // test_cb_fs_close
   close(fd);
   assert(fcntl(fd, F_GETFD) == -1);
+}
+
+void test_cb_fs_ls_dir() {
+  char list[4096];
+  char expected_list[] = "db_a\ndb_b";
+  assert(cb_fs_ls_dir(FAKE_DBS_DIRECTORY, list, 4096) == 0);
+  assert(memcmp(list,expected_list,strlen(expected_list) + 1) == 0);
+}
+
+void test_cb_fs_ls_file() {
+  char list[4096];
+  char expected_list[] = "coll_a\ncoll_b";
+  assert(cb_fs_ls_file(FAKE_DB_A_DIRECTORY, list, 4096) == 0);
+  assert(memcmp(list,expected_list,strlen(expected_list) + 1) == 0);
+
+  char list2[4096];
+  char expected_list2[] = "";
+  assert(cb_fs_ls_file(FAKE_DB_B_DIRECTORY, list2, 4096) == 0);
+  assert(memcmp(list2,expected_list2,strlen(expected_list2) + 1) == 0);
 }
 
 // TODO: criterion or cmocka
