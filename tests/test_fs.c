@@ -89,6 +89,7 @@ void test_cb_fs_open_close() {
 void test_cb_fs_ls_dir() {
   char list[4096];
   char expected_list[] = "db_a\ndb_b";
+  assert(cb_fs_ls_dir(FAKE_DBS_DIRECTORY, list, 0) == -2);
   assert(cb_fs_ls_dir(FAKE_DBS_DIRECTORY, list, 4096) == 0);
   assert(memcmp(list,expected_list,strlen(expected_list) + 1) == 0);
 }
@@ -96,6 +97,7 @@ void test_cb_fs_ls_dir() {
 void test_cb_fs_ls_file() {
   char list[4096];
   char expected_list[] = "coll_a\ncoll_b";
+  assert(cb_fs_ls_file(FAKE_DB_A_DIRECTORY, list, 0) == -2);
   assert(cb_fs_ls_file(FAKE_DB_A_DIRECTORY, list, 4096) == 0);
   assert(memcmp(list,expected_list,strlen(expected_list) + 1) == 0);
 
