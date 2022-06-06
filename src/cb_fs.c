@@ -64,7 +64,7 @@ int cb_fs_ls_dir(const char *dir_path, char *list, size_t list_size) {
     if (entry->d_type == DT_DIR) {
       if(written + strlen(entry->d_name) + 1 <= list_size){
         if(written > 0)
-          list[written] = '\n';
+          list[written-1] = '\n';
         memcpy(list + written,entry->d_name, strlen(entry->d_name));
         list[written + strlen(entry->d_name)] = '\0';
         written += strlen(entry->d_name) + 1;
@@ -91,7 +91,7 @@ int cb_fs_ls_file(const char *dir_path, char *list, size_t list_size) {
     if (entry->d_type == DT_REG) {
       if(written + strlen(entry->d_name) + 1 <= list_size){
         if(written > 0)
-          list[written] = '\n';
+          list[written-1] = '\n';
         memcpy(list + written,entry->d_name, strlen(entry->d_name));
         list[written + strlen(entry->d_name)] = '\0';
         written += strlen(entry->d_name) + 1;
