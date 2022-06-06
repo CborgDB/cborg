@@ -62,14 +62,14 @@ int cb_fs_ls_dir(const char *dir_path, char *list, size_t list_size) {
     if (!strcmp(entry->d_name, ".") || !strcmp(entry->d_name, ".."))
       continue;
     if (entry->d_type == DT_DIR) {
-      if(written + entry->d_namlen + 1 <= list_size){
+      if(written + strlen(entry->d_name) + 1 <= list_size){
         if(written > 0)
           list[written] = '\n';
-        memcpy(list + written,entry->d_name, entry->d_namlen);
-        list[written + entry->d_namlen] = '\0';
-        written += entry->d_namlen + 1;
+        memcpy(list + written,entry->d_name, strlen(entry->d_name));
+        list[written + strlen(entry->d_name)] = '\0';
+        written += strlen(entry->d_name) + 1;
       } else {
-        return -1;
+        return -2;
       }
     }
   }
@@ -89,14 +89,14 @@ int cb_fs_ls_file(const char *dir_path, char *list, size_t list_size) {
 
   while ((entry = readdir(dirp)) != NULL) {
     if (entry->d_type == DT_REG) {
-      if(written + entry->d_namlen + 1 <= list_size){
+      if(written + strlen(entry->d_name) + 1 <= list_size){
         if(written > 0)
           list[written] = '\n';
-        memcpy(list + written,entry->d_name, entry->d_namlen);
-        list[written + entry->d_namlen] = '\0';
-        written += entry->d_namlen + 1;
+        memcpy(list + written,entry->d_name, strlen(entry->d_name));
+        list[written + strlen(entry->d_name)] = '\0';
+        written += strlen(entry->d_name) + 1;
       } else {
-        return -1;
+        return -2;
       }
     }
   }
