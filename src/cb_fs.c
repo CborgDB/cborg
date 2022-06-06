@@ -47,6 +47,63 @@ int cb_fs_rmdir(const char *dir_path) {
   return rmdir(dir_path);
 }
 
+// Bad list (to send the string directly in cbor, waiting for cbor arrays)
+int cb_fs_ls_dir(const char *dir_path, char *list, size_t list_size) {
+  DIR *dirp;
+  struct dirent *entry;
+  size_t written = 0;
+  if(list_size > 0)
+    list[0] = '\0';
+
+  if ((dirp = opendir(dir_path)) == NULL)
+    return -1;
+
+  while ((entry = readdir(dirp)) != NULL) {
+    if (!strcmp(entry->d_name, ".") || !strcmp(entry->d_name, ".."))
+      continue;
+    if (entry->d_type == DT_DIR) {
+      if(written + entry->d_namlen + 1 <= list_size){
+        if(written > 0)
+          list[written] = '\n';
+        memcpy(list + written,entry->d_name, entry->d_namlen);
+        list[written + entry->d_namlen] = '\0';
+        written += entry->d_namlen + 1;
+      } else {
+        return -1;
+      }
+    }
+  }
+  
+  return closedir(dirp);
+}
+
+int cb_fs_ls_file(const char *dir_path, char *list, size_t list_size) {
+  DIR *dirp;
+  struct dirent *entry;
+  size_t written = 0;
+  if(list_size > 0)
+    list[0] = '\0';
+
+  if ((dirp = opendir(dir_path)) == NULL)
+    return -1;
+
+  while ((entry = readdir(dirp)) != NULL) {
+    if (entry->d_type == DT_REG) {
+      if(written + entry->d_namlen + 1 <= list_size){
+        if(written > 0)
+          list[written] = '\n';
+        memcpy(list + written,entry->d_name, entry->d_namlen);
+        list[written + entry->d_namlen] = '\0';
+        written += entry->d_namlen + 1;
+      } else {
+        return -1;
+      }
+    }
+  }
+  
+  return closedir(dirp);
+}
+
 int cb_fs_touch(const char *path) {
   int fd = open(path, O_WRONLY | O_CREAT, 0644);
   if (fd < 0)
