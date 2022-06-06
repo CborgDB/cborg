@@ -9,6 +9,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <string.h>
 
 #include "cb_fs.h"
 #include "cb_cbor_int.h"
@@ -25,12 +26,16 @@ void init(){
   assert(fd_negint > 0);
   fd_int = open("./int.cb", O_RDWR | O_CREAT | O_TRUNC, 0644);
   assert(fd_int > 0);
+
+  // databases
+  cb_fs_mkdir("./databases");
 }
 
 void destroy() {
   cb_fs_close(fd_uint);
   cb_fs_close(fd_negint);
   cb_fs_close(fd_int);
+  cb_fs_rmdir("./databases");
 }
 
 void test_cb_ops_insert_one() {
@@ -248,6 +253,63 @@ void test_cb_ops_delete_all() {
   assert(s_uint8.st_size == 4);
 }
 
+void test_cb_ops_create_db() {
+  assert(cb_ops_create_db("cyborg") == 0);
+  assert(cb_ops_create_db("droid") == 0);
+
+  assert(cb_ops_create_db("cyborg") == -2);
+  assert(cb_ops_create_db("droid") == -2);
+}
+
+void test_cb_ops_list_dbs() {
+  char list[4096];
+  assert(cb_ops_list_dbs(list, 4096) == 0);
+
+  char expected_list[] = "cyborg\ndroid";
+  char expected_list_rev[] = "droid\ncyborg";
+  assert((memcmp(list, expected_list, strlen(expected_list) + 1)) == 0 ||
+         (memcmp(list, expected_list_rev, strlen(expected_list_rev) + 1) == 0));
+}
+
+void test_cb_ops_create_collection() {
+  assert(cb_ops_create_collection("cyborg","users") == 0);
+  assert(cb_ops_create_collection("cyborg","others") == 0);
+
+  assert(cb_ops_create_collection("cyborg","users") == -2);
+  assert(cb_ops_create_collection("cyborg","others") == -2);
+}
+
+void test_cb_ops_list_collections() {
+  char list[4096];
+  assert(cb_ops_list_collections("cyborg", list, 4096) == 0);
+
+  char expected_list[] = "users\nothers";
+  char expected_list_rev[] = "others\nusers";
+  assert((memcmp(list, expected_list, strlen(expected_list) + 1)) == 0 ||
+         (memcmp(list, expected_list_rev, strlen(expected_list_rev) + 1) == 0));
+
+  char list2[4096];
+  assert(cb_ops_list_collections("droid", list2, 4096) == 0);
+  char expected_list2[] = "";
+  assert(memcmp(list2, expected_list2, strlen(expected_list2) + 1) == 0);
+}
+
+void test_cb_ops_drop_collection() {
+  assert(cb_ops_drop_collection("cyborg","users") == 0);
+  assert(cb_ops_drop_collection("cyborg","others") == 0);
+
+  assert(cb_ops_drop_collection("cyborg","users") == -2);
+  assert(cb_ops_drop_collection("cyborg","others") == -2);
+}
+
+void test_cb_ops_drop_db() {
+  assert(cb_ops_drop_db("cyborg") == 0);
+  assert(cb_ops_drop_db("droid") == 0);
+
+  assert(cb_ops_drop_db("cyborg") == -2);
+  assert(cb_ops_drop_db("droid") == -2);
+}
+
 // TODO: criterion or cmocka
 int main() {
   init();
@@ -259,7 +321,13 @@ int main() {
   test_cb_ops_update_all();
   test_cb_ops_delete_one();
   test_cb_ops_delete_all();
-  
+  test_cb_ops_create_db();
+  test_cb_ops_list_dbs();
+  test_cb_ops_create_collection();
+  test_cb_ops_list_collections();
+  test_cb_ops_drop_collection();
+  test_cb_ops_drop_db();
+
   destroy();
 
   return EXIT_SUCCESS;
