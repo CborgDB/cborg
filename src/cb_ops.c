@@ -3,18 +3,99 @@
  *
  */
 
-#define _XOPEN_SOURCE 500
+#ifdef __linux__
+#define _GNU_SOURCE
+#include <linux/limits.h> // PATH_MAX
+#endif
 
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 #include <sys/stat.h>
+#include <limits.h>
 
+#include "cb_fs.h"
 #include "cb_cbor_int.h"
 #include "cb_cbor_simple.h"
 #include "cb_ops.h"
 
+#define DATABASES_DIRECTORY "./databases"
+
 // Bad code to see performance improvement later :)
+
+// return
+//  0 : db created
+//  -2 = db exist
+//  -1 = erreur -> errno
+int cb_ops_create_db(const char *db_name) {
+  char full_path[PATH_MAX + 1];
+  snprintf(full_path, sizeof(full_path), "%s/%s", DATABASES_DIRECTORY, db_name);
+
+  if(cb_fs_dir_exists(full_path))
+    return -2;
+  
+  return cb_fs_mkdir(full_path);
+}
+
+// return
+//  0 : db deleted
+//  -2 = db not exist
+//  -1 = erreur -> errno
+int cb_ops_drop_db(const char *db_name) {
+  char full_path[PATH_MAX + 1];
+  snprintf(full_path, sizeof(full_path), "%s/%s", DATABASES_DIRECTORY, db_name);
+
+  if(!cb_fs_dir_exists(full_path))
+    return -2;
+  
+  return cb_fs_rmdir(full_path);
+}
+
+// return
+//  0 : success
+//  -2 = insuficient size
+//  -1 = erreur -> errno
+int cb_ops_list_dbs(char *list, size_t list_size) {
+  return cb_fs_ls_dir(DATABASES_DIRECTORY,list,list_size);
+}
+
+// return
+//  0 : collection created
+//  -2 = collection exist
+//  -1 = erreur -> errno
+int cb_ops_create_collection(const char *db_name, const char *collection_name) {
+  char full_path[PATH_MAX + 1];
+  snprintf(full_path, sizeof(full_path), "%s/%s/%s", DATABASES_DIRECTORY, db_name, collection_name);
+
+  if(cb_fs_file_exists(full_path))
+    return -2;
+  
+  return cb_fs_touch(full_path);
+}
+
+// return
+//  0 : collection deleted
+//  -2 = collection not exist
+//  -1 = erreur -> errno
+int cb_ops_drop_collection(const char *db_name, const char *collection_name) {
+  char full_path[PATH_MAX + 1];
+  snprintf(full_path, sizeof(full_path), "%s/%s/%s", DATABASES_DIRECTORY, db_name, collection_name);
+
+  if(!cb_fs_file_exists(full_path))
+    return -2;
+  
+  return cb_fs_remove(full_path);
+}
+
+// return
+//  0 : success
+//  -2 = insuficient size
+//  -1 = erreur -> errno
+int cb_ops_list_collections(const char *db_name, char *list, size_t list_size) {
+  char full_path[PATH_MAX + 1];
+  snprintf(full_path, sizeof(full_path), "%s/%s", DATABASES_DIRECTORY, db_name);
+  return cb_fs_ls_file(full_path,list,list_size);
+}
 
 // Simple insert (Like append) to the end of the file O(1) ;)
 ssize_t cb_ops_insert_one(int fd, const void *item, size_t item_size) {
