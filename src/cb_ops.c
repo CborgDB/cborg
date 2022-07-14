@@ -67,6 +67,9 @@ int cb_ops_create_collection(const char *db_name, const char *collection_name) {
   char full_path[PATH_MAX + 1];
   snprintf(full_path, sizeof(full_path), "%s/%s/%s", DATABASES_DIRECTORY, db_name, collection_name);
 
+  if(strlen(db_name) == 0)
+    return -3;
+
   if(cb_fs_file_exists(full_path))
     return -2;
   
@@ -80,6 +83,9 @@ int cb_ops_create_collection(const char *db_name, const char *collection_name) {
 int cb_ops_drop_collection(const char *db_name, const char *collection_name) {
   char full_path[PATH_MAX + 1];
   snprintf(full_path, sizeof(full_path), "%s/%s/%s", DATABASES_DIRECTORY, db_name, collection_name);
+
+  if(strlen(db_name) == 0)
+    return -3;
 
   if(!cb_fs_file_exists(full_path))
     return -2;
@@ -107,7 +113,7 @@ ssize_t cb_ops_insert_one(int fd, const void *item, size_t item_size) {
 
 // Linear Search O(n/2)
 // return
-//  >0 : position found
+//  >=0 : position found
 //  -2 = not found
 //  -1 = erreur -> errno
 off_t cb_ops_find_one(int fd, void *item, size_t item_size, off_t start_pos) {
@@ -167,11 +173,18 @@ int cb_ops_update_one(int fd, void *old, size_t old_size, void *new,
 
 int cb_ops_update_all(int fd, void *old, size_t old_size, void *new,
                   size_t new_size, off_t after_pos) {
+  uint64_t count = 0;
   int ret;
-  while((ret = cb_ops_update_one(fd, old, old_size, new, new_size, after_pos)) > 0);
-  return ret;
+  while((ret = cb_ops_update_one(fd, old, old_size, new, new_size, after_pos)) > 0) {
+    count++;
+  }
+  return (ret == -2 && count > 0) ? count : ret;
 }
 
+// return
+//  >0 : item deleted
+//  -2 = not found
+//  -1 = erreur -> errno
 int cb_ops_delete_one(int fd, void *item, size_t item_size) {
   off_t position;
   if ((position = cb_ops_find_one(fd, item, item_size, 0)) >= 0) {
@@ -191,8 +204,16 @@ int cb_ops_delete_one(int fd, void *item, size_t item_size) {
   return position;
 }
 
+// return
+//  >0 : items deleted
+//  -2 = not found
+//  -1 = erreur -> errno
 int cb_ops_delete_all(int fd, void *item, size_t item_size) {
+  uint64_t count = 0;
   int ret;
-  while((ret = cb_ops_delete_one(fd,item,item_size)) > 0);
-  return ret;
+
+  while((ret = cb_ops_delete_one(fd,item,item_size)) > 0) {
+    count++;
+  }
+  return (ret == -2 && count > 0) ? count : ret;
 }
