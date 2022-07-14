@@ -9,7 +9,7 @@
 CborgDB is 🚧 still under development 🚧 and will be a database management system.
 The database will be developed in C language and the project is open source on 🐙 GitHub.
 
-The purpose of CborgDB is to learn how existing database management systems work under the hood and maybe be able to do something different. Currently, CborgDB doesn't do anything interesting but you have the right to try it 😜.
+The purpose of CborgDB is to learn how existing database management systems work under the hood and maybe be able to do something different.
 
 ## ⚙️ Build
 
@@ -70,13 +70,73 @@ CborgDB is running on port 30000.
 
 3) In another terminal
 ```console
-abenhlal@cborgdb:~$ telnet localhost 30000
-Trying 127.0.0.1...
-Connected to localhost.
-Escape character is '^]'.
-Welcome to CborgDB !
-Connection closed by foreign host.
+abenhlal@cborgdb:~/cborg/build$ ./cborg-cli
+CborgDB() > create db toto
+kind="2" string="create" entity_type="4" string="db" name="20" string="toto" parser_status="0"
+
+Database created.
+
+CborgDB() > show dbs
+kind="0" string="show" entity_type="5" string="dbs" parser_status="0"
+
+toto
+
+CborgDB() > use toto      
+kind="1" string="use" db_name="20" string="toto" parser_status="0"
+CborgDB(toto) > create collection titi
+kind="2" string="create" entity_type="6" string="collection" name="20" string="titi" parser_status="0"
+
+Collection created.
+
+CborgDB(toto) > show collections
+kind="0" string="show" entity_type="7" string="collections" parser_status="0"
+
+titi
+
+CborgDB(toto) > db.titi.insertOne(150)
+kind="4" string="db" is_an_operation="1" coll_name="20" string="titi" operation="10" string="insertOne" arg1="22" string="150" arg1_is_positive="1" arg2="0" string="" arg2_is_positive="0" parser_status="0"
+
+Item inserted.
+
+CborgDB(toto) > db.titi.findOne(60)
+kind="4" string="db" is_an_operation="1" coll_name="20" string="titi" operation="11" string="findOne" arg1="22" string="60" arg1_is_positive="1" arg2="0" string="" arg2_is_positive="0" parser_status="0"
+
+Item not found.
+
+CborgDB(toto) > db.titi.findOne(150)
+kind="4" string="db" is_an_operation="1" coll_name="20" string="titi" operation="11" string="findOne" arg1="22" string="150" arg1_is_positive="1" arg2="0" string="" arg2_is_positive="0" parser_status="0"
+
+Item found.
+
+CborgDB(toto) > exit
+kind="9" string="exit" parser_status="0"
 ```
+
+## Help cmd
+
+### help
+
+![help](docs/media/cli-help.png)
+
+### help show
+
+![help-show](docs/media/cli-help-show.png)
+
+### help use
+
+![help-use](docs/media/cli-help-use.png)
+
+### help create
+
+![help-create](docs/media/cli-help-create.png)
+
+### help drop
+
+![help-drop](docs/media/cli-help-drop.png)
+
+### help db
+
+![help-db](docs/media/cli-help-db.png)
 
 ## 🚪🚶 Uninstall
 
