@@ -6,6 +6,8 @@
 
 ---
 
+![build](https://img.shields.io/github/workflow/status/cborgdb/cborg/CMake/master?logo=github)
+
 CborgDB is 🚧 still under development 🚧 and will be a database management system.
 The database will be developed in C language and the project is open source on 🐙 GitHub.
 
