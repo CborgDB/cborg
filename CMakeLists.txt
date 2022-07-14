@@ -17,8 +17,16 @@ include(GNUInstallDirs)
 
 # CBORG
 file(GLOB_RECURSE SRC "${CMAKE_SOURCE_DIR}/src/*.c")
+
+set(SRC_SERVER ${SRC})
+set(SRC_CLI ${SRC})
+
+list(REMOVE_ITEM SRC_SERVER "${CMAKE_SOURCE_DIR}/src/cborg-cli.c")
+list(REMOVE_ITEM SRC_CLI "${CMAKE_SOURCE_DIR}/src/cborg.c")
+
 include_directories(${CMAKE_SOURCE_DIR}/include ${CMAKE_BINARY_DIR}/include)
-add_executable(cborg ${SRC})
+add_executable(cborg ${SRC_SERVER})
+add_executable(cborg-cli ${SRC_CLI})
 
 # TESTS
 include(CTest)
@@ -37,6 +45,7 @@ add_test(NAME test_cb_cbor_string COMMAND test_cb_cbor_string)
 
 # INSTALL CBORG
 install(TARGETS cborg DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(TARGETS cborg-cli DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 # UNINSTALL
 # source: https://gitlab.kitware.com/cmake/community/-/wikis/FAQ#can-i-do-make-uninstall-with-cmake
