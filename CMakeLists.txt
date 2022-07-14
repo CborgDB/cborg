@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0)
-project(cborg VERSION 0.2.0 LANGUAGES C)
+project(cborg VERSION 0.3.0 LANGUAGES C)
 
 configure_file(${CMAKE_SOURCE_DIR}/include/version.h.in ${CMAKE_BINARY_DIR}/include/version.h @ONLY)
 
