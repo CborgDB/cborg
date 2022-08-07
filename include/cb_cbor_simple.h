@@ -13,6 +13,6 @@
 // ENCODING //
 //////////////
 
-ssize_t cb_cbor_encode_null(uint8_t *ev, ssize_t size);
+size_t cb_cbor_encode_null(uint8_t *ev, size_t size);
 
 #endif // _CB_CBOR_SIMPLE_H

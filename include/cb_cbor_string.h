@@ -13,9 +13,9 @@
 // ENCODING //
 //////////////
 
-ssize_t cb_cbor_encode_string_start(uint64_t len, uint8_t *ev, ssize_t size);
+size_t cb_cbor_encode_string_start(uint64_t len, uint8_t *ev, size_t size);
 
-ssize_t cb_cbor_encode_string_definite(char *s, uint64_t s_len, uint8_t *ev, ssize_t ev_size);
+size_t cb_cbor_encode_string_definite(char *s, uint64_t s_len, uint8_t *ev, size_t ev_size);
 
 ///////////////
 // ACCESSORS //
