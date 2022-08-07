@@ -14,26 +14,26 @@
 //////////////
 
 // INT
-ssize_t cb_cbor_encode_uint8(uint8_t v, uint8_t *ev, ssize_t size);
+size_t cb_cbor_encode_uint8(uint8_t v, uint8_t *ev, size_t size);
 
-ssize_t cb_cbor_encode_uint16(uint16_t v, uint8_t *ev, ssize_t size);
+size_t cb_cbor_encode_uint16(uint16_t v, uint8_t *ev, size_t size);
 
-ssize_t cb_cbor_encode_uint32(uint32_t v, uint8_t *ev, ssize_t size);
+size_t cb_cbor_encode_uint32(uint32_t v, uint8_t *ev, size_t size);
 
-ssize_t cb_cbor_encode_uint64(uint64_t v, uint8_t *ev, ssize_t size);
+size_t cb_cbor_encode_uint64(uint64_t v, uint8_t *ev, size_t size);
 
-ssize_t cb_cbor_encode_uint(uint64_t v, uint8_t *ev, ssize_t size);
+size_t cb_cbor_encode_uint(uint64_t v, uint8_t *ev, size_t size);
 
 // NEG INT
-ssize_t cb_cbor_encode_negint8(uint8_t v, uint8_t *ev, ssize_t size);
+size_t cb_cbor_encode_negint8(uint8_t v, uint8_t *ev, size_t size);
 
-ssize_t cb_cbor_encode_negint16(uint16_t v, uint8_t *ev, ssize_t size);
+size_t cb_cbor_encode_negint16(uint16_t v, uint8_t *ev, size_t size);
 
-ssize_t cb_cbor_encode_negint32(uint32_t v, uint8_t *ev, ssize_t size);
+size_t cb_cbor_encode_negint32(uint32_t v, uint8_t *ev, size_t size);
 
-ssize_t cb_cbor_encode_negint64(uint64_t v, uint8_t *ev, ssize_t size);
+size_t cb_cbor_encode_negint64(uint64_t v, uint8_t *ev, size_t size);
 
-ssize_t cb_cbor_encode_negint(uint64_t v, uint8_t *ev, ssize_t size);
+size_t cb_cbor_encode_negint(uint64_t v, uint8_t *ev, size_t size);
 
 ///////////////
 // ACCESSORS //

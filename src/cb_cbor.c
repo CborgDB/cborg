@@ -6,8 +6,8 @@
 #include "cb_cbor.h"
 #include "cb_endianness.h"
 
-ssize_t _cb_cbor_encode_uint8(uint8_t v, uint8_t *ev,
-                                            ssize_t size, uint8_t offset) {
+size_t _cb_cbor_encode_uint8(uint8_t v, uint8_t *ev,
+                                            size_t size, uint8_t offset) {
   if (v < 24) {
     if (size >= 1) {
       ev[0] = v + offset;
@@ -23,8 +23,8 @@ ssize_t _cb_cbor_encode_uint8(uint8_t v, uint8_t *ev,
   return 0;
 }
 
-ssize_t _cb_cbor_encode_uint16(uint16_t v, uint8_t *ev,
-                                             ssize_t size, uint8_t offset) {
+size_t _cb_cbor_encode_uint16(uint16_t v, uint8_t *ev,
+                                             size_t size, uint8_t offset) {
   if (size >= 3) {
     ev[0] = 25 + offset;
 #ifdef IS_BIG_ENDIAN
@@ -37,8 +37,8 @@ ssize_t _cb_cbor_encode_uint16(uint16_t v, uint8_t *ev,
   return 0;
 }
 
-ssize_t _cb_cbor_encode_uint32(uint32_t v, uint8_t *ev,
-                                             ssize_t size, uint8_t offset) {
+size_t _cb_cbor_encode_uint32(uint32_t v, uint8_t *ev,
+                                             size_t size, uint8_t offset) {
   if (size >= 5) {
     ev[0] = 26 + offset;
 #ifdef IS_BIG_ENDIAN
@@ -51,8 +51,8 @@ ssize_t _cb_cbor_encode_uint32(uint32_t v, uint8_t *ev,
   return 0;
 }
 
-ssize_t _cb_cbor_encode_uint64(uint64_t v, uint8_t *ev,
-                                             ssize_t size, uint8_t offset) {
+size_t _cb_cbor_encode_uint64(uint64_t v, uint8_t *ev,
+                                             size_t size, uint8_t offset) {
   if (size >= 9) {
     ev[0] = 27 + offset;
 #ifdef IS_BIG_ENDIAN
@@ -65,8 +65,8 @@ ssize_t _cb_cbor_encode_uint64(uint64_t v, uint8_t *ev,
   return 0;
 }
 
-ssize_t _cb_cbor_encode_uint(uint64_t v, uint8_t *ev,
-                                           ssize_t size, uint8_t offset) {
+size_t _cb_cbor_encode_uint(uint64_t v, uint8_t *ev,
+                                           size_t size, uint8_t offset) {
   if (v <= UINT16_MAX)
     if (v <= UINT8_MAX)
       return _cb_cbor_encode_uint8(v, ev, size, offset);
