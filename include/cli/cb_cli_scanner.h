@@ -6,7 +6,7 @@
 #ifndef _CB_CLI_SCANNER_H
 #define _CB_CLI_SCANNER_H
 
-#include "cb_cli_token.h"
+#include "cli/cb_cli_token.h"
 
 typedef struct {
   char *buf_start;

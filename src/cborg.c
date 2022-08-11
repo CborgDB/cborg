@@ -20,9 +20,9 @@
 #include <fcntl.h>
 #include <errno.h>
 
-#include "cb_cbor.h"
-#include "cb_cbor_int.h"
-#include "cb_cbor_string.h"
+#include "cbor/cb_cbor.h"
+#include "cbor/cb_cbor_int.h"
+#include "cbor/cb_cbor_string.h"
 #include "cb_ops.h"
 #include "cb_fs.h"
 #include "cb_opt.h"

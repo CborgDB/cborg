@@ -5,8 +5,8 @@
 
 #include "cb_msg.h"
 #include "cb_msg_encode.h"
-#include "cb_cbor_int.h"
-#include "cb_cbor_string.h"
+#include "cbor/cb_cbor_int.h"
+#include "cbor/cb_cbor_string.h"
 
 #include <stdio.h>
 #include <string.h>

@@ -3,8 +3,8 @@
  *
  */
 #include "cb_request.h"
-#include "cb_cbor_int.h"
-#include "cb_cbor_string.h"
+#include "cbor/cb_cbor_int.h"
+#include "cbor/cb_cbor_string.h"
 #include "cb_msg.h"
 #include <stddef.h>
 #include <stdint.h>

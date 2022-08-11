@@ -21,14 +21,14 @@
 #include <sys/socket.h> // socket()
 #include <unistd.h>
 
-#include "cb_cbor.h"
-#include "cb_cbor_int.h"
-#include "cb_cbor_string.h"
-#include "cb_cli_help.h"
-#include "cb_cli_interpreter.h"
-#include "cb_cli_parser.h"
-#include "cb_cli_scanner.h"
-#include "cb_cli_token.h"
+#include "cbor/cb_cbor.h"
+#include "cbor/cb_cbor_int.h"
+#include "cbor/cb_cbor_string.h"
+#include "cli/cb_cli_help.h"
+#include "cli/cb_cli_interpreter.h"
+#include "cli/cb_cli_parser.h"
+#include "cli/cb_cli_scanner.h"
+#include "cli/cb_cli_token.h"
 
 int init_socket() {
   int fd;
