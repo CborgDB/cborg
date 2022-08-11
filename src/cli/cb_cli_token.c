@@ -3,7 +3,7 @@
  *
  */
 
-#include "cb_cli_token.h"
+#include "cli/cb_cli_token.h"
 
 token_t tokenizer(char *p, int p_len) {
   if (p_len > 0) {

@@ -3,7 +3,7 @@
  *
  */
 
-#include "cb_cli_help.h"
+#include "cli/cb_cli_help.h"
 
 #include <stdio.h>
 
