@@ -1,11 +1,13 @@
 cmake_minimum_required(VERSION 3.0)
-project(cborg VERSION 0.3.0 LANGUAGES C)
 
+project(cborg VERSION 0.3.0 LANGUAGES C)
 configure_file(${CMAKE_SOURCE_DIR}/include/version.h.in ${CMAKE_BINARY_DIR}/include/version.h @ONLY)
+
+project(cborg-cli VERSION 0.1.0 LANGUAGES C)
+configure_file(${CMAKE_SOURCE_DIR}/include/cli/cb_cli_version.h.in ${CMAKE_BINARY_DIR}/include/cli/cb_cli_version.h @ONLY)
 
 # BUILD
 set(CMAKE_C_FLAGS "-std=c99 -Wall -Wextra -pedantic")
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -fno-omit-frame-pointer -mno-omit-leaf-frame-pointer")
 include(TestBigEndian)
 test_big_endian(IS_BIG_ENDIAN)
 if(IS_BIG_ENDIAN)
