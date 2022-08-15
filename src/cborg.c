@@ -32,7 +32,8 @@
 #define DATABASES_DIRECTORY "./databases"
 
 int main(int argc, char const *argv[]) {
-  cb_getopt(argc, argv);
+  uint16_t port = 30000;
+  cb_getopt(argc, argv, &port);
 
   // Init server
   int fd;
@@ -47,7 +48,6 @@ int main(int argc, char const *argv[]) {
     exit(EXIT_FAILURE);
   }
 
-  uint16_t port = 30000;
   struct sockaddr_in address;
   address.sin_family = AF_INET;
   address.sin_addr.s_addr = INADDR_ANY;
@@ -64,7 +64,7 @@ int main(int argc, char const *argv[]) {
 
   cb_fs_mkdir(DATABASES_DIRECTORY);
 
-  printf("CborgDB is running on port 30000.\n");
+  printf("CborgDB is running on port %hu.\n", port);
 
   int client;
   socklen_t slen = sizeof(address);

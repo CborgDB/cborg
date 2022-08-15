@@ -3,8 +3,8 @@
  *
  */
 
-#ifndef _CB_OPT_H
-#define _CB_OPT_H
+#ifndef _CB_CLI_OPT_H
+#define _CB_CLI_OPT_H
 
 #include <stdint.h>
 
@@ -12,6 +12,6 @@ void usage(const char * progname);
 
 void print_version();
 
-void cb_getopt(int argc, char const *argv[], uint16_t *port);
+void cb_cli_getopt(int argc, char const *argv[], char* host, uint16_t *port);
 
-#endif // _CB_OPT_H
+#endif // _CB_CLI_OPT_H
