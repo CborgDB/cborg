@@ -29,6 +29,7 @@
 #include "cli/cb_cli_parser.h"
 #include "cli/cb_cli_scanner.h"
 #include "cli/cb_cli_token.h"
+#include "cli/cb_cli_opt.h"
 
 int init_socket() {
   int fd;
@@ -71,6 +72,9 @@ void print_prompt(const char *db_in_use) {
 }
 
 int main(int argc, char const *argv[]) {
+  char host[255] = "127.0.0.1";
+  uint16_t port = 30000;
+  cb_cli_getopt(argc, argv, host, &port);
   scanner_t s;
   parser_t p;
   interpreter_t i;
@@ -78,7 +82,7 @@ int main(int argc, char const *argv[]) {
   char db_in_use[255] = {0};
   int fd = 0; 
   fd = init_socket(); // init socket
-  connect_socket(fd, "127.0.0.1", 30000); // connect to the server
+  connect_socket(fd, host, port); // connect to the server
   while (i.status != INTERPRETER_EXIT) {
     print_prompt(db_in_use);
     size_t nread = read(fileno(stdin), buffer, 4096);

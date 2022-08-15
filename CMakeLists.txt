@@ -21,8 +21,8 @@ file(GLOB_RECURSE SRC "${CMAKE_SOURCE_DIR}/src/**.c")
 set(SRC_SERVER ${SRC})
 set(SRC_CLI ${SRC})
 
-list(REMOVE_ITEM SRC_SERVER "${CMAKE_SOURCE_DIR}/src/cli/cborg-cli.c")
-list(REMOVE_ITEM SRC_CLI "${CMAKE_SOURCE_DIR}/src/cborg.c")
+list(REMOVE_ITEM SRC_SERVER "${CMAKE_SOURCE_DIR}/src/cli/cborg-cli.c" "${CMAKE_SOURCE_DIR}/src/cli/cb_cli_opt.c")
+list(REMOVE_ITEM SRC_CLI "${CMAKE_SOURCE_DIR}/src/cborg.c" "${CMAKE_SOURCE_DIR}/src/cb_opt.c")
 
 include_directories(${CMAKE_SOURCE_DIR}/include ${CMAKE_BINARY_DIR}/include)
 add_executable(cborg ${SRC_SERVER})
