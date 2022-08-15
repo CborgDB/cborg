@@ -31,7 +31,7 @@ void cb_cli_getopt(int argc, char const *argv[], char* host, uint16_t *port) {
     static struct option long_options[] = {
         {"version", no_argument, &version_flag, 1},
         {"help", no_argument, &help_flag, 1},
-        {"host", no_argument, 0, 'h'},
+        {"host", required_argument, 0, 'h'},
         {"port", required_argument, 0, 'p'},
         {0, 0, 0, 0}};
     int option_index = 0;
