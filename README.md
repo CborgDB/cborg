@@ -36,44 +36,45 @@ abenhlal@cborgdb:~/cborg/build$ make install
 1) Version
 ```console
 abenhlal@cborgdb:~/cborg/build$ ./cborg --version
-CborgDB v0.2.0
+CborgDB v0.3.0
 
 Maintained by Adil Benhlal <a.benhlal@cborgdb.com>
 ```
 
 2) Help
 
-- long option
 ```console
-abenhlal@cborgdb:~/cborg/build$ ./cborg --help
 Usage:
     ./cborg [options]
 
 Options:
     -h, --help    Display this help
     --version     Print the version of CborgDB
-```
-
-- short option
-```console
-abenhlal@cborgdb:~/cborg/build$ ./cborg -h
-Usage:
-    ./cborg [options]
-
-Options:
-    -h, --help    Display this help
-    --version     Print the version of CborgDB
+    -p, --port    Port of CborgDB
 ```
 
 2) Run Cborg
 ```console
-abenhlal@cborgdb:~/cborg/build$ ./cborg
-CborgDB is running on port 30000.
+abenhlal@cborgdb:~/cborg/build$ ./cborg --port 40000
+CborgDB is running on port 40000.
 ```
 
 3) In another terminal
 ```console
-abenhlal@cborgdb:~/cborg/build$ ./cborg-cli
+abenhlal@cborgdb:~/cborg/build$ ./cborg-cli --version
+CborgDB CLI v0.1.0
+
+Maintained by Adil Benhlal <a.benhlal@cborgdb.com>
+abenhlal@cborgdb:~/cborg/build$ ./cborg-cli --help
+Usage:
+    ./cborg-cli [options]
+
+Options:
+    --version     Print the version of CborgDB
+    --help    Display this help
+    -h, --host    IP address of CborgDB
+    -p, --port    Port of CborgDB
+abenhlal@cborgdb:~/cborg/build$ ./cborg-cli --host 127.0.0.1 --port 40000
 CborgDB() > create db toto
 kind="2" string="create" entity_type="4" string="db" name="20" string="toto" parser_status="0"
 
