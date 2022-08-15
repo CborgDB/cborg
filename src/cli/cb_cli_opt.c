@@ -1,5 +1,6 @@
 
 #include "cli/cb_cli_opt.h"
+#include "cli/cb_cli_version.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,7 +18,7 @@ void usage(const char *progname) {
 }
 
 void print_version() {
-  printf("CborgDB CLI v0.1.0\n\n");
+  printf("CborgDB CLI v" CBORG_CLI_VERSION "\n\n");
   printf("Maintained by Adil Benhlal <a.benhlal@cborgdb.com>\n");
 }
 
