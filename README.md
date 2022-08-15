@@ -44,6 +44,7 @@ Maintained by Adil Benhlal <a.benhlal@cborgdb.com>
 2) Help
 
 ```console
+abenhlal@cborgdb:~/cborg/build$ ./cborg --help
 Usage:
     ./cborg [options]
 
