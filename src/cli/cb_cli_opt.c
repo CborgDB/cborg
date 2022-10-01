@@ -19,7 +19,7 @@ void usage(const char *progname) {
 
 void print_version() {
   printf("CborgDB CLI v" CBORG_CLI_VERSION "\n\n");
-  printf("Maintained by Adil Benhlal <a.benhlal@cborgdb.com>\n");
+  printf("Maintained by Adil Benhlal <abenhlal@cborgdb.com>\n");
 }
 
 void cb_cli_getopt(int argc, char const *argv[], char* host, uint16_t *port) {

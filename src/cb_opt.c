@@ -17,7 +17,7 @@ void usage(const char *progname) {
 
 void print_version() {
   printf("CborgDB v" CBORGDB_VERSION "\n\n");
-  printf("Maintained by Adil Benhlal <a.benhlal@cborgdb.com>\n");
+  printf("Maintained by Adil Benhlal <abenhlal@cborgdb.com>\n");
 }
 
 void cb_getopt(int argc, char const *argv[], uint16_t *port) {
