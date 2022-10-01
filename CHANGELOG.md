@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/CborgDB/cborg/compare/v0.4.0...v0.4.1) (2022-10-01)
+
+
+### Bug Fixes
+
+* version number ([#39](https://github.com/CborgDB/cborg/issues/39)) ([7457823](https://github.com/CborgDB/cborg/commit/745782345c810d04b2a6bb5f3a4fbc52a5427901))
+
 ## [0.4.0](https://github.com/CborgDB/cborg/compare/v0.3.0...v0.4.0) (2022-10-01)
 
 
