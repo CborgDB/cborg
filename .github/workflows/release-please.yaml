@@ -1,0 +1,25 @@
+name: release-please
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Token
+        id: get_workflow_token
+        uses: peter-murray/workflow-application-token-action@v1
+        with:
+          application_id: "${{ secrets.RELEASE_PLEASE_APPLICATION_ID }}"
+          application_private_key: ${{ secrets.RELEASE_PLEASE_PRIVATE_KEY }}
+          organization: ${{ github.repository_owner }}
+
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          token: ${{ steps.get_workflow_token.outputs.token }}
+          default-branch: master
+          command: manifest
