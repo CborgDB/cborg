@@ -1,0 +1,9 @@
+{
+  "bootstrap-sha": "96003535cc2942ec050121927955284ff43fca4d",
+  "separate-pull-request": true,
+  "packages": {
+    ".": {
+      "release-type": "simple"
+    }
+  }
+}
