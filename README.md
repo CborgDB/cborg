@@ -38,7 +38,7 @@ abenhlal@cborgdb:~/cborg/build$ make install
 abenhlal@cborgdb:~/cborg/build$ ./cborg --version
 CborgDB v0.3.0
 
-Maintained by Adil Benhlal <a.benhlal@cborgdb.com>
+Maintained by Adil Benhlal <abenhlal@cborgdb.com>
 ```
 
 2) Help
@@ -65,7 +65,7 @@ CborgDB is running on port 40000.
 abenhlal@cborgdb:~/cborg/build$ ./cborg-cli --version
 CborgDB CLI v0.1.0
 
-Maintained by Adil Benhlal <a.benhlal@cborgdb.com>
+Maintained by Adil Benhlal <abenhlal@cborgdb.com>
 abenhlal@cborgdb:~/cborg/build$ ./cborg-cli --help
 Usage:
     ./cborg-cli [options]
