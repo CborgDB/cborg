@@ -1,0 +1,28 @@
+name: Docker build & push 
+
+on:
+  release:
+    type:
+      - released
+
+jobs:
+  docker:
+    name: Login, build and push with tag version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Get version
+        id: get_version
+        run: echo ::set-output name=version::$(cat version.txt)
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: cborgdb/cborg:${{ steps.get_version.outputs.version }}
