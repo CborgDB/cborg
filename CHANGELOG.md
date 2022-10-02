@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.0](https://github.com/CborgDB/cborg/compare/v0.4.1...v0.5.0) (2022-10-02)
+
+
+### Features
+
+* add Dockerfile, build and push automatically ([#42](https://github.com/CborgDB/cborg/issues/42)) ([bf04c2f](https://github.com/CborgDB/cborg/commit/bf04c2f287ce569b31cded69e56b9a06f0ac5fc3))
+
 ## [0.4.1](https://github.com/CborgDB/cborg/compare/v0.4.0...v0.4.1) (2022-10-01)
 
 
