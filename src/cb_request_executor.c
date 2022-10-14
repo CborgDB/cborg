@@ -421,18 +421,23 @@ void cb_request_execute_delete_all(uint8_t *msg_payload, response_t *res) {
  * list dbs
  */
 void cb_request_execute_list_dbs(uint8_t *msg_payload, response_t *res) {
-  char list[4096];
-  int ret = cb_ops_list_dbs(list, 4096);
-  size_t list_len = strlen(list);
-  list[list_len] = '\n';
+  char **list = NULL;
+  size_t list_size = 0;
+
+  int ret = cb_ops_list_dbs(&list, &list_size);
 
   if(ret == 0){
-    size_t written = cb_cbor_encode_string_definite(list, list_len + 1, res->payload, 4096);
-    res->msg_length = written + 18;
+    res->msg_length = 0;
+    for(size_t i = 0; i < list_size; i++){
+      size_t written = cb_cbor_encode_string_definite(list[i], strlen(list[i]), res->payload + res->msg_length, 4096 - res->msg_length);
+      res->msg_length += written;
+    }
+    res->msg_length += 18;
   } else {
     size_t written = cb_cbor_encode_string_definite("An error has occurred.\n", 23, res->payload, 4096);
     res->msg_length = written + 18;
   }
+  cb_fs_list_free(list, list_size);
 }
 
 /**
@@ -448,18 +453,23 @@ void cb_request_execute_list_collections(uint8_t *msg_payload, response_t *res) 
          db_name_len);
   db_name[db_name_len] = 0;
 
-  char list[4096];
-  int ret = cb_ops_list_collections(db_name, list, 4096);
-  size_t list_len = strlen(list);
-  list[list_len] = '\n';
+  char **list = NULL;
+  size_t list_size = 0;
+
+  int ret = cb_ops_list_collections(db_name, &list, &list_size);
 
   if(ret == 0){
-    size_t written = cb_cbor_encode_string_definite(list, list_len + 1, res->payload, 4096);
-    res->msg_length = written + 18;
+    res->msg_length = 0;
+    for(size_t i = 0; i < list_size; i++){
+      size_t written = cb_cbor_encode_string_definite(list[i], strlen(list[i]), res->payload + res->msg_length, 4096 - res->msg_length);
+      res->msg_length += written;
+    }
+    res->msg_length += 18;
   } else {
     size_t written = cb_cbor_encode_string_definite("An error has occurred.\n", 23, res->payload, 4096);
     res->msg_length = written + 18;
   }
+  cb_fs_list_free(list, list_size);
 }
 
 void cb_request_executor(request_t *req, response_t *res) {
