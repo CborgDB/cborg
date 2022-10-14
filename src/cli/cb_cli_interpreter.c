@@ -39,11 +39,36 @@ void interpreter_recv_reply(interpreter_t *i) {
   printf("\n%.*s\n", msg_length - 18 - ib_string_size, reply+18+ib_string_size);
 }
 
+void interpreter_recv_reply_show(interpreter_t *i) {
+  uint8_t reply[4096];
+  size_t nread = read(i->fd,reply,9);
+
+  uint64_t msg_length;
+  cb_cbor_get_uint(reply,&msg_length);
+
+  nread = read(i->fd,reply + 9,msg_length - 9);
+  uint64_t op_code;
+  cb_cbor_get_uint(reply + 9,&op_code);
+  
+  uint8_t *p = reply + 18;
+  uint64_t len = msg_length - 18;
+  printf("\n");
+  while(len > 0) {
+    uint64_t ib_string_size = cb_cbor_get_uint_size(p);
+    uint64_t string_len = 0;
+    cb_cbor_get_uint(p, &string_len);
+    printf("- %.*s\n", string_len, p + ib_string_size);
+    p += ib_string_size + string_len;
+    len -= ib_string_size + string_len;
+  }
+  printf("\n");
+}
+
 void interpret_show_dbs(interpreter_t *i, node_cmd_show_t *show) {
   char buffer[4096];
   size_t written = cb_msg_encode_list_databases(buffer, 4096);
   write(i->fd, buffer, written);
-  interpreter_recv_reply(i);
+  interpreter_recv_reply_show(i);
 }
 
 void interpret_show_collections(interpreter_t *i, node_cmd_show_t *show) {
@@ -51,7 +76,7 @@ void interpret_show_collections(interpreter_t *i, node_cmd_show_t *show) {
   size_t written = cb_msg_encode_list_collections(buffer, 4096, i->db_in_use,
                                                   strlen(i->db_in_use));
   write(i->fd, buffer, written);
-  interpreter_recv_reply(i);
+  interpreter_recv_reply_show(i);
 }
 
 void interpret_create_db(interpreter_t *i, node_cmd_create_drop_t *create) {

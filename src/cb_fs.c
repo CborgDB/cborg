@@ -18,10 +18,11 @@
 #include <string.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <stdlib.h>
 
 #include "cb_fs.h"
 
-int cb_fs_mkdir(const char *dir_path) { return mkdir(dir_path, 0777); }
+int cb_fs_mkdir(const char *dir_path) { return mkdir(dir_path, 0755); }
 
 int cb_fs_rmdir(const char *dir_path) {
   DIR *dirp;
@@ -47,61 +48,72 @@ int cb_fs_rmdir(const char *dir_path) {
   return rmdir(dir_path);
 }
 
-// Bad list (to send the string directly in cbor, waiting for cbor arrays)
-int cb_fs_ls_dir(const char *dir_path, char *list, size_t list_size) {
-  DIR *dirp;
-  struct dirent *entry;
-  size_t written = 0;
-  if(list_size > 0)
-    list[0] = '\0';
+int cb_fs_ls_dir(const char *dir_path, char ***list_dir, size_t *list_size) {
+  DIR *dirp = NULL;
+  struct dirent *entry = NULL;
+  *list_dir = NULL;
+  *list_size = 0;
+
+  char **list = NULL;
+  size_t size = 0;
+   
 
   if ((dirp = opendir(dir_path)) == NULL)
     return -1;
-
+  
   while ((entry = readdir(dirp)) != NULL) {
     if (!strcmp(entry->d_name, ".") || !strcmp(entry->d_name, ".."))
       continue;
     if (entry->d_type == DT_DIR) {
-      if(written + strlen(entry->d_name) + 1 <= list_size){
-        if(written > 0)
-          list[written-1] = '\n';
-        memcpy(list + written,entry->d_name, strlen(entry->d_name));
-        list[written + strlen(entry->d_name)] = '\0';
-        written += strlen(entry->d_name) + 1;
-      } else {
-        return -2;
-      }
+      list = realloc(list, (size + 1) * sizeof(char**));
+      list[size] = strdup(entry->d_name);
+      size++;
     }
   }
   
-  return closedir(dirp);
+  *list_size = size;
+  *list_dir = list;
+  closedir(dirp);
+
+  return 0;
 }
 
-int cb_fs_ls_file(const char *dir_path, char *list, size_t list_size) {
-  DIR *dirp;
-  struct dirent *entry;
-  size_t written = 0;
-  if(list_size > 0)
-    list[0] = '\0';
+int cb_fs_ls_file(const char *dir_path, char ***list_files, size_t *list_size) {
+  DIR *dirp = NULL;
+  struct dirent *entry = NULL;
+  *list_files = NULL;
+  *list_size = 0;
+
+  char **list = NULL;
+  size_t size = 0;
+   
 
   if ((dirp = opendir(dir_path)) == NULL)
     return -1;
-
+  
   while ((entry = readdir(dirp)) != NULL) {
     if (entry->d_type == DT_REG) {
-      if(written + strlen(entry->d_name) + 1 <= list_size){
-        if(written > 0)
-          list[written-1] = '\n';
-        memcpy(list + written,entry->d_name, strlen(entry->d_name));
-        list[written + strlen(entry->d_name)] = '\0';
-        written += strlen(entry->d_name) + 1;
-      } else {
-        return -2;
-      }
+      list = realloc(list, (size + 1) * sizeof(char**));
+      list[size] = strdup(entry->d_name);
+      size++;
     }
   }
   
-  return closedir(dirp);
+  *list_size = size;
+  *list_files = list;
+  closedir(dirp);
+
+  return 0;
+}
+
+int cb_fs_list_free(char **list, size_t size) {
+  if(list != NULL){
+    while(size > 0) {
+      free(list[--size]);
+    }
+    free(list);
+  }
+  return 0;
 }
 
 int cb_fs_touch(const char *path) {

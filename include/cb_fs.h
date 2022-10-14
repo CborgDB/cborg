@@ -10,9 +10,11 @@ int cb_fs_mkdir(const char *path);
 
 int cb_fs_rmdir(const char *dir_path);
 
-int cb_fs_ls_dir(const char *dir_path, char *list, size_t list_size);
+int cb_fs_ls_dir(const char *dir_path, char ***list_dir, size_t *list_size);
 
-int cb_fs_ls_file(const char *dir_path, char *list, size_t list_size);
+int cb_fs_ls_file(const char *dir_path, char ***list_files, size_t *list_size);
+
+int cb_fs_list_free(char **list, size_t size);
 
 int cb_fs_touch(const char *path);
 

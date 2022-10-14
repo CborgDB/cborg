@@ -50,12 +50,10 @@ int cb_ops_drop_db(const char *db_name) {
   
   return cb_fs_rmdir(full_path);
 }
-
-// return
-//  0 : success
-//  -2 = insuficient size
-//  -1 = erreur -> errno
-int cb_ops_list_dbs(char *list, size_t list_size) {
+// return:
+// 0: OK
+// -1: Cannot open directory
+int cb_ops_list_dbs(char ***list, size_t *list_size) {
   return cb_fs_ls_dir(DATABASES_DIRECTORY,list,list_size);
 }
 
@@ -97,10 +95,10 @@ int cb_ops_drop_collection(const char *db_name, const char *collection_name) {
 //  0 : success
 //  -2 = insuficient size
 //  -1 = erreur -> errno
-int cb_ops_list_collections(const char *db_name, char *list, size_t list_size) {
+int cb_ops_list_collections(const char *db_name, char ***list, size_t *list_size) {
   char full_path[PATH_MAX + 1];
   snprintf(full_path, sizeof(full_path), "%s/%s", DATABASES_DIRECTORY, db_name);
-  return cb_fs_ls_file(full_path,list,list_size);
+  return cb_fs_ls_file(full_path, list, list_size);
 }
 
 // Simple insert (Like append) to the end of the file O(1) ;)

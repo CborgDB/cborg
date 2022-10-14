@@ -87,28 +87,26 @@ void test_cb_fs_open_close() {
 }
 
 void test_cb_fs_ls_dir() {
-  char list[4096];
-  char expected_list[] = "db_a\ndb_b";
-  char expected_list_rev[] = "db_b\ndb_a";
-  assert(cb_fs_ls_dir(FAKE_DBS_DIRECTORY, list, 0) == -2);
-  assert(cb_fs_ls_dir(FAKE_DBS_DIRECTORY, list, 4096) == 0);
-  assert((memcmp(list, expected_list, strlen(expected_list) + 1) == 0) ||
-         (memcmp(list, expected_list_rev, strlen(expected_list_rev) + 1) == 0));
+  char **list_dir;
+  size_t list_size;
+
+  cb_fs_ls_dir(".", &list_dir, &list_size);
+  for(size_t i = 0; i <list_size; i++){
+    printf("list_dir[%zu] = %s\n", i, list_dir[i]);
+  }
+  cb_fs_list_free(list_dir, list_size);
 }
 
 void test_cb_fs_ls_file() {
-  char list[4096];
-  char expected_list[] = "coll_a\ncoll_b";
-  char expected_list_rev[] = "coll_b\ncoll_a";
-  assert(cb_fs_ls_file(FAKE_DB_A_DIRECTORY, list, 0) == -2);
-  assert(cb_fs_ls_file(FAKE_DB_A_DIRECTORY, list, 4096) == 0);
-  assert((memcmp(list, expected_list, strlen(expected_list) + 1) == 0) ||
-         (memcmp(list, expected_list_rev, strlen(expected_list_rev) + 1) == 0));
+  char **list_files;
+  size_t list_size;
 
-  char list2[4096];
-  char expected_list2[] = "";
-  assert(cb_fs_ls_file(FAKE_DB_B_DIRECTORY, list2, 4096) == 0);
-  assert(memcmp(list2,expected_list2,strlen(expected_list2) + 1) == 0);
+  cb_fs_ls_file(".", &list_files, &list_size);
+  for(size_t i = 0; i <list_size; i++){
+    printf("list_files[%zu] = %s\n", i, list_files[i]);
+  }
+  cb_fs_list_free(list_files, list_size);
+
 }
 
 // TODO: criterion or cmocka
