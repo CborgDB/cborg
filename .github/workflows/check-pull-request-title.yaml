@@ -18,7 +18,7 @@ jobs:
         id: regex-match
         with:
           text: ${{ github.event.pull_request.title }}
-          regex: '^(revert: )?(build|chore|ci|docs|feat|fix|perf|refactor|style|test)(\([^\(\)]+\))?: .{1,50}'
+          regex: '^(revert: )?(build|chore|ci|docs|feat|fix|perf|refactor|style|test)(\([^\(\)]+\))?!?: .{1,50}'
       - name: Regex match fail
         if: ${{ steps.regex-match.outputs.match != github.event.pull_request.title }}
         run: exit 1

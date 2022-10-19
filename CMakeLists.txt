@@ -1,21 +1,9 @@
 cmake_minimum_required(VERSION 3.0)
 
-file(READ "version.txt" version_txt)
-
-project(cborg LANGUAGES C)
-string(STRIP "${version_txt}" PROJECT_VERSION)
-string(REPLACE "." ";" VERSION_LIST ${PROJECT_VERSION})
-list(GET VERSION_LIST 0 PROJECT_VERSION_MAJOR)
-list(GET VERSION_LIST 1 PROJECT_VERSION_MINOR)
-list(GET VERSION_LIST 2 PROJECT_VERSION_PATCH)
+project(cborg VERSION 0.5.0 LANGUAGES C) # x-release-please-version
 configure_file(${CMAKE_SOURCE_DIR}/include/version.h.in ${CMAKE_BINARY_DIR}/include/version.h @ONLY)
 
-project(cborg-cli LANGUAGES C)
-string(STRIP "${version_txt}" PROJECT_VERSION)
-string(REPLACE "." ";" VERSION_LIST ${PROJECT_VERSION})
-list(GET VERSION_LIST 0 PROJECT_VERSION_MAJOR)
-list(GET VERSION_LIST 1 PROJECT_VERSION_MINOR)
-list(GET VERSION_LIST 2 PROJECT_VERSION_PATCH)
+project(cborg-cli VERSION 0.5.0 LANGUAGES C) # x-release-please-version
 configure_file(${CMAKE_SOURCE_DIR}/include/cli/cb_cli_version.h.in ${CMAKE_BINARY_DIR}/include/cli/cb_cli_version.h @ONLY)
 
 # BUILD
