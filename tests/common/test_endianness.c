@@ -6,7 +6,7 @@
 #include <assert.h>
 #include <stdlib.h>
 
-#include "cb_endianness.h"
+#include "common/cb_endianness.h"
 
 void test_cb_bswap16() {
   assert(cb_bswap16(0xDBBD) == 0xBDDB);

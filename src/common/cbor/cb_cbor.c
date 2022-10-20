@@ -3,8 +3,8 @@
  *
  */
 
-#include "cbor/cb_cbor.h"
-#include "cb_endianness.h"
+#include "common/cbor/cb_cbor.h"
+#include "common/cb_endianness.h"
 
 size_t _cb_cbor_encode_uint8(uint8_t v, uint8_t *ev,
                                             size_t size, uint8_t offset) {
