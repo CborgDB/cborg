@@ -12,7 +12,7 @@
 #include <errno.h>
 #include <string.h>
 
-#include "cb_fs.h"
+#include "common/cb_fs.h"
 
 #define FAKE_FILE_OPEN "./fake_file_open"
 #define FAKE_DIRECTORY "./fake_directory"

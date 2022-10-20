@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "cbor/cb_cbor_string.h"
+#include "common/cbor/cb_cbor_string.h"
 
 void test_cb_cbor_encode_string() {
   // Size tests

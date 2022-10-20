@@ -32,17 +32,17 @@ add_executable(cborg-cli ${SRC_CLI})
 
 # TESTS
 include(CTest)
-add_executable(test_fs "${CMAKE_SOURCE_DIR}/tests/test_fs.c" "${CMAKE_SOURCE_DIR}/src/cb_fs.c")
+add_executable(test_fs "${CMAKE_SOURCE_DIR}/tests/common/test_fs.c" "${CMAKE_SOURCE_DIR}/src/common/cb_fs.c")
 add_test(NAME test_fs COMMAND test_fs)
-add_executable(test_endianness "${CMAKE_SOURCE_DIR}/tests/test_endianness.c" "${CMAKE_SOURCE_DIR}/src/cb_endianness.c")
+add_executable(test_endianness "${CMAKE_SOURCE_DIR}/tests/common/test_endianness.c" "${CMAKE_SOURCE_DIR}/src/common/cb_endianness.c")
 add_test(NAME test_endianness COMMAND test_endianness)
-add_executable(test_cb_cbor_int "${CMAKE_SOURCE_DIR}/tests/cbor/test_cb_cbor_int.c" "${CMAKE_SOURCE_DIR}/src/cbor/cb_cbor_int.c" "${CMAKE_SOURCE_DIR}/src/cbor/cb_cbor.c" "${CMAKE_SOURCE_DIR}/src/cb_endianness.c")
+add_executable(test_cb_cbor_int "${CMAKE_SOURCE_DIR}/tests/common/cbor/test_cb_cbor_int.c" "${CMAKE_SOURCE_DIR}/src/common/cbor/cb_cbor_int.c" "${CMAKE_SOURCE_DIR}/src/common/cbor/cb_cbor.c" "${CMAKE_SOURCE_DIR}/src/common/cb_endianness.c")
 add_test(NAME test_cb_cbor_int COMMAND test_cb_cbor_int)
-add_executable(test_cb_cbor_simple "${CMAKE_SOURCE_DIR}/tests/cbor/test_cb_cbor_simple.c" "${CMAKE_SOURCE_DIR}/src/cbor/cb_cbor_simple.c")
+add_executable(test_cb_cbor_simple "${CMAKE_SOURCE_DIR}/tests/common/cbor/test_cb_cbor_simple.c" "${CMAKE_SOURCE_DIR}/src/common/cbor/cb_cbor_simple.c")
 add_test(NAME test_cb_cbor_simple COMMAND test_cb_cbor_simple)
-add_executable(test_cb_ops "${CMAKE_SOURCE_DIR}/tests/test_cb_ops.c" "${CMAKE_SOURCE_DIR}/src/cb_ops.c" "${CMAKE_SOURCE_DIR}/src/cb_endianness.c" "${CMAKE_SOURCE_DIR}/src/cb_fs.c" "${CMAKE_SOURCE_DIR}/src/cbor/cb_cbor.c" "${CMAKE_SOURCE_DIR}/src/cbor/cb_cbor_int.c" "${CMAKE_SOURCE_DIR}/src/cbor/cb_cbor_simple.c")
+add_executable(test_cb_ops "${CMAKE_SOURCE_DIR}/tests/test_cb_ops.c" "${CMAKE_SOURCE_DIR}/src/cb_ops.c" "${CMAKE_SOURCE_DIR}/src/common/cb_endianness.c" "${CMAKE_SOURCE_DIR}/src/common/cb_fs.c" "${CMAKE_SOURCE_DIR}/src/common/cbor/cb_cbor.c" "${CMAKE_SOURCE_DIR}/src/common/cbor/cb_cbor_int.c" "${CMAKE_SOURCE_DIR}/src/common/cbor/cb_cbor_simple.c")
 add_test(NAME test_cb_ops COMMAND test_cb_ops)
-add_executable(test_cb_cbor_string "${CMAKE_SOURCE_DIR}/tests/cbor/test_cb_cbor_string.c" "${CMAKE_SOURCE_DIR}/src/cbor/cb_cbor_string.c" "${CMAKE_SOURCE_DIR}/src/cbor/cb_cbor_int.c" "${CMAKE_SOURCE_DIR}/src/cbor/cb_cbor.c" "${CMAKE_SOURCE_DIR}/src/cb_endianness.c")
+add_executable(test_cb_cbor_string "${CMAKE_SOURCE_DIR}/tests/common/cbor/test_cb_cbor_string.c" "${CMAKE_SOURCE_DIR}/src/common/cbor/cb_cbor_string.c" "${CMAKE_SOURCE_DIR}/src/common/cbor/cb_cbor_int.c" "${CMAKE_SOURCE_DIR}/src/common/cbor/cb_cbor.c" "${CMAKE_SOURCE_DIR}/src/common/cb_endianness.c")
 add_test(NAME test_cb_cbor_string COMMAND test_cb_cbor_string)
 
 # INSTALL CBORG

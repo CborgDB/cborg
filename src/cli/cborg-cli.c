@@ -21,9 +21,9 @@
 #include <sys/socket.h> // socket()
 #include <unistd.h>
 
-#include "cbor/cb_cbor.h"
-#include "cbor/cb_cbor_int.h"
-#include "cbor/cb_cbor_string.h"
+#include "common/cbor/cb_cbor.h"
+#include "common/cbor/cb_cbor_int.h"
+#include "common/cbor/cb_cbor_string.h"
 #include "cli/cb_cli_help.h"
 #include "cli/cb_cli_interpreter.h"
 #include "cli/cb_cli_parser.h"

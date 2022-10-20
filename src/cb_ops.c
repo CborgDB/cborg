@@ -14,9 +14,9 @@
 #include <sys/stat.h>
 #include <limits.h>
 
-#include "cb_fs.h"
-#include "cbor/cb_cbor_int.h"
-#include "cbor/cb_cbor_simple.h"
+#include "common/cb_fs.h"
+#include "common/cbor/cb_cbor_int.h"
+#include "common/cbor/cb_cbor_simple.h"
 #include "cb_ops.h"
 
 #define DATABASES_DIRECTORY "./databases"

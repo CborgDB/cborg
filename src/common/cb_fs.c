@@ -20,7 +20,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#include "cb_fs.h"
+#include "common/cb_fs.h"
 
 int cb_fs_mkdir(const char *dir_path) { return mkdir(dir_path, 0755); }
 

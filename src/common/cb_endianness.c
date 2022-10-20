@@ -3,7 +3,7 @@
  *
  */
 
-#include "cb_endianness.h"
+#include "common/cb_endianness.h"
 
 int cb_is_little_endian() {
   int x = 1;

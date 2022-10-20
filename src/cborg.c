@@ -20,11 +20,11 @@
 #include <fcntl.h>
 #include <errno.h>
 
-#include "cbor/cb_cbor.h"
-#include "cbor/cb_cbor_int.h"
-#include "cbor/cb_cbor_string.h"
+#include "common/cbor/cb_cbor.h"
+#include "common/cbor/cb_cbor_int.h"
+#include "common/cbor/cb_cbor_string.h"
 #include "cb_ops.h"
-#include "cb_fs.h"
+#include "common/cb_fs.h"
 #include "cb_opt.h"
 #include "cb_request.h"
 #include "cb_request_executor.h"

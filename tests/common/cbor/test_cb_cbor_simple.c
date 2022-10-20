@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "cbor/cb_cbor_simple.h"
+#include "common/cbor/cb_cbor_simple.h"
 
 // INT
 void test_cb_cbor_encode_null() {
