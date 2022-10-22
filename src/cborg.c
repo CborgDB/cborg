@@ -4,86 +4,71 @@
  */
 
 #ifdef __linux__
+
 #define _GNU_SOURCE
 #include <linux/limits.h> // PATH_MAX
+
+#elif __APPLE__
+
+#include <sys/event.h>
+#include <sys/time.h>
+#include <sys/types.h>
+
 #endif
 
-#include <arpa/inet.h>  // htons()
+#include <arpa/inet.h> // htons()
+#include <errno.h>
+#include <fcntl.h>
+#include <inttypes.h>
+#include <limits.h>
 #include <netinet/in.h> // sockaddr_in
 #include <stdio.h>      // perror()
 #include <stdlib.h>     // exit(), EXIT_FAILURE, EXIT_SUCCES
 #include <string.h>     // strlen()
 #include <sys/socket.h> // socket()
 #include <unistd.h>
-#include <inttypes.h>
-#include <limits.h>
-#include <fcntl.h>
-#include <errno.h>
 
-#include "common/cbor/cb_cbor.h"
-#include "common/cbor/cb_cbor_int.h"
-#include "common/cbor/cb_cbor_string.h"
 #include "cb_ops.h"
-#include "common/cb_fs.h"
 #include "cb_opt.h"
 #include "cb_request.h"
 #include "cb_request_executor.h"
+#include "common/cb_fs.h"
+#include "common/cbor/cb_cbor.h"
+#include "common/cbor/cb_cbor_int.h"
+#include "common/cbor/cb_cbor_string.h"
+#include "common/net/server.h"
 
 #define DATABASES_DIRECTORY "./databases"
 
+#ifdef __linux__
+
 int main(int argc, char const *argv[]) {
+  server_t server;
   uint16_t port = 30000;
   cb_getopt(argc, argv, &port);
 
-  // Init server
-  int fd;
-  if ((fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
-    perror("socket failed");
-    exit(EXIT_FAILURE);
-  }
-
-  int opt = 1;
-  if (setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))) {
-    perror("setsockopt");
-    exit(EXIT_FAILURE);
-  }
-
-  struct sockaddr_in address;
-  address.sin_family = AF_INET;
-  address.sin_addr.s_addr = INADDR_ANY;
-  address.sin_port = htons(port);
-  if (bind(fd, (struct sockaddr *)&(address), sizeof(address)) < 0) {
-    perror("bind failed");
-    exit(EXIT_FAILURE);
-  }
-
-  if (listen(fd, 100) < 0) {
-    perror("listen");
-    exit(EXIT_FAILURE);
-  }
+  cb_net_server_init(&server);
+  cb_net_server_bind(&server, port);
+  cb_net_server_listen(&server, 1);
 
   cb_fs_mkdir(DATABASES_DIRECTORY);
 
   printf("CborgDB is running on port %hu.\n", port);
 
-  int client;
-  socklen_t slen = sizeof(address);
+  socket_t client;
 
   while (1) {
-    if ((client = accept(fd, (struct sockaddr *)&(address), &slen)) < 0) {
-      perror("accept");
-      exit(EXIT_FAILURE);
-    }
+    client = cb_net_server_accept(&server);
     printf("Client connected :)\n");
     char s[] = "Welcome to CborgDB !\n";
     //write(client, s, strlen(s));
     
     char fake_buffer[9];
     //while (fcntl(client, F_GETFD) != -1 || errno != EBADF) {
-    while (recv(client, fake_buffer, 9, MSG_PEEK)>0) {
+    while (recv(client.fd, fake_buffer, 9, MSG_PEEK)>0) {
       request_t req;
       response_t res;
-      if (cb_request_handle(client, &req, &res) == 0) {
+      if (cb_request_handle(client.fd, &req, &res) == 0) {
         cb_request_executor(&req, &res);
       }
       // bad code: send reply
@@ -91,19 +76,76 @@ int main(int argc, char const *argv[]) {
       cb_cbor_encode_uint64(res.msg_length, encoded_response, 4096);
       cb_cbor_encode_uint64(res.op_code, encoded_response + 9, 4096);
       memcpy(encoded_response + 18, res.payload, res.msg_length - 18);
-      write(client, encoded_response, res.msg_length);
+      write(client.fd, encoded_response, res.msg_length);
     }
     printf("Connection closed by the client.\n");
   }
-  if (close(client) < 0) {
-    perror("close client failed");
-    exit(EXIT_FAILURE);
-  }
-
-  if (close(fd) < 0) {
-    perror("close server failed");
-    exit(EXIT_FAILURE);
-  }
+  cb_net_socket_destroy(&client);
+  cb_net_server_destroy(&server);
 
   return EXIT_SUCCESS;
 }
+
+#elif __APPLE__
+
+int main(int argc, char const *argv[]) {
+  server_t server;
+  uint16_t port = 30000;
+  cb_getopt(argc, argv, &port);
+
+  cb_net_server_init(&server);
+  cb_net_server_bind(&server, port);
+  cb_net_server_listen(&server, 10);
+
+  cb_fs_mkdir(DATABASES_DIRECTORY);
+
+  printf("CborgDB is running on port %hu.\n", port);
+  socket_t client;
+
+  int kq = kqueue();
+  struct kevent ev_set;
+  struct kevent ev_list[10];
+  EV_SET(&ev_set, server.socket.fd, EVFILT_READ, EV_ADD, 0, 0, NULL);
+  kevent(kq, &ev_set, 1, NULL, 0, NULL);
+
+  while (1) {
+    int num_events = kevent(kq, NULL, 0, ev_list, 10, NULL);
+
+    for (int i = 0; i < num_events; i++) {
+      int event_fd = ev_list[i].ident;
+      //printf("event_fd=%d server=%d\n", event_fd, server.socket.fd);
+      if (event_fd == server.socket.fd) {
+        client = cb_net_server_accept(&server);
+        EV_SET(&ev_set, client.fd, EVFILT_READ, EV_ADD, 0, 0, NULL);
+        kevent(kq, &ev_set, 1, NULL, 0, NULL);
+        printf("Client #%d connected.\n", client.fd);
+      } else if (ev_list[i].flags & EV_EOF) {
+        int event_fd = ev_list[i].ident;
+        printf("Client #%d disconnected.\n", event_fd);
+        EV_SET(&ev_set, event_fd, EVFILT_READ, EV_DELETE, 0, 0, NULL);
+        kevent(kq, &ev_set, 1, NULL, 0, NULL);
+        //close(event_fd);
+      } else if (ev_list[i].filter & EVFILT_READ) {
+        char fake_buffer[9];
+        if (recv(event_fd, fake_buffer, 9, MSG_PEEK) > 0) {
+          request_t req;
+          response_t res;
+          if (cb_request_handle(ev_list[i].ident, &req, &res) == 0) {
+            cb_request_executor(&req, &res);
+          }
+          uint8_t encoded_response[4096];
+          cb_cbor_encode_uint64(res.msg_length, encoded_response, 4096);
+          cb_cbor_encode_uint64(res.op_code, encoded_response + 9, 4096);
+          memcpy(encoded_response + 18, res.payload, res.msg_length - 18);
+          write(event_fd, encoded_response, res.msg_length);
+        }
+      }
+    }
+  }
+  
+  cb_net_server_destroy(&server);
+
+  return EXIT_SUCCESS;
+}
+
+#endif
