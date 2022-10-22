@@ -124,7 +124,7 @@ int main(int argc, char const *argv[]) {
         printf("Client #%d disconnected.\n", event_fd);
         EV_SET(&ev_set, event_fd, EVFILT_READ, EV_DELETE, 0, 0, NULL);
         kevent(kq, &ev_set, 1, NULL, 0, NULL);
-        //close(event_fd);
+        close(event_fd);
       } else if (ev_list[i].filter & EVFILT_READ) {
         char fake_buffer[9];
         if (recv(event_fd, fake_buffer, 9, MSG_PEEK) > 0) {
