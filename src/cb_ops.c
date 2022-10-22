@@ -31,7 +31,7 @@ int cb_ops_create_db(const char *db_name) {
   char full_path[PATH_MAX + 1];
   snprintf(full_path, sizeof(full_path), "%s/%s", DATABASES_DIRECTORY, db_name);
 
-  if(cb_fs_dir_exists(full_path))
+  if(cb_fs_dir_exists(full_path) == 1)
     return -2;
   
   return cb_fs_mkdir(full_path);
@@ -45,7 +45,7 @@ int cb_ops_drop_db(const char *db_name) {
   char full_path[PATH_MAX + 1];
   snprintf(full_path, sizeof(full_path), "%s/%s", DATABASES_DIRECTORY, db_name);
 
-  if(!cb_fs_dir_exists(full_path))
+  if(cb_fs_dir_exists(full_path) != 1)
     return -2;
   
   return cb_fs_rmdir(full_path);
@@ -68,7 +68,7 @@ int cb_ops_create_collection(const char *db_name, const char *collection_name) {
   if(strlen(db_name) == 0)
     return -3;
 
-  if(cb_fs_file_exists(full_path))
+  if(cb_fs_file_exists(full_path) == 1)
     return -2;
   
   return cb_fs_touch(full_path);
@@ -85,7 +85,7 @@ int cb_ops_drop_collection(const char *db_name, const char *collection_name) {
   if(strlen(db_name) == 0)
     return -3;
 
-  if(!cb_fs_file_exists(full_path))
+  if(cb_fs_file_exists(full_path) != 1)
     return -2;
   
   return cb_fs_remove(full_path);

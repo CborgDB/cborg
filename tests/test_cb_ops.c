@@ -274,7 +274,7 @@ void test_cb_ops_list_dbs() {
     assert(strcmp("droid", list[0]) == 0);
     assert(strcmp("cyborg", list[1]) == 0);
   }
-  assert(cb_fs_list_free(list, list_size) == 0);
+  cb_fs_list_free(list, list_size);
 }
 
 void test_cb_ops_create_collection() {
@@ -298,7 +298,7 @@ void test_cb_ops_list_collections() {
     assert(strcmp("others", list[0]) == 0);
     assert(strcmp("users", list[1]) == 0);
   }
-  assert(cb_fs_list_free(list, list_size) == 0);
+  cb_fs_list_free(list, list_size);
 }
 
 void test_cb_ops_drop_collection() {
