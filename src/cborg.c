@@ -86,7 +86,7 @@ int main(int argc, char const *argv[]) {
   return EXIT_SUCCESS;
 }
 
-#elif __APPLE__
+#elif __APPLE__ || __OpenBSD__ || __FreeBSD__ || __NetBSD__ || BSD
 
 int main(int argc, char const *argv[]) {
   server_t server;
