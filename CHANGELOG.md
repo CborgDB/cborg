@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.6.0](https://github.com/CborgDB/cborg/compare/v0.5.0...v0.6.0) (2022-11-01)
+
+
+### Features
+
+* **server:** allow multiple client on BSD systems using kqueue ([#49](https://github.com/CborgDB/cborg/issues/49)) ([bfd85b9](https://github.com/CborgDB/cborg/commit/bfd85b9c92efef1419257bd9c704a8ebf8fdc8d6))
+
+
+### Bug Fixes
+
+* **ops:** update operations reading new item was wrong ([4169f01](https://github.com/CborgDB/cborg/commit/4169f01df3caa627d26e7a70e2a052a809bf5f3a))
+* **server:** close client socket on BSD systems ([b16fe5d](https://github.com/CborgDB/cborg/commit/b16fe5d9089c9b6cc2d64234aaa55a7cb0296a6a))
+* **server:** createCollection returns wrong message ([26c8a1f](https://github.com/CborgDB/cborg/commit/26c8a1f6ed6c528d5593b72586a4e9951543b756))
+
 ## [0.5.0](https://github.com/CborgDB/cborg/compare/v0.4.1...v0.5.0) (2022-10-02)
 
 

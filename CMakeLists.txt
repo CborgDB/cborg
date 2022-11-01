@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.0)
 
-project(cborg VERSION 0.5.0 LANGUAGES C) # x-release-please-version
+project(cborg VERSION 0.6.0 LANGUAGES C) # x-release-please-version
 configure_file(${CMAKE_SOURCE_DIR}/include/version.h.in ${CMAKE_BINARY_DIR}/include/version.h @ONLY)
 
-project(cborg-cli VERSION 0.5.0 LANGUAGES C) # x-release-please-version
+project(cborg-cli VERSION 0.6.0 LANGUAGES C) # x-release-please-version
 configure_file(${CMAKE_SOURCE_DIR}/include/cli/cb_cli_version.h.in ${CMAKE_BINARY_DIR}/include/cli/cb_cli_version.h @ONLY)
 
 # BUILD
