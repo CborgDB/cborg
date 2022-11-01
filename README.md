@@ -14,6 +14,12 @@ The database will be developed in C language and the project is open source on �
 
 The purpose of CborgDB is to learn how existing database management systems work under the hood and maybe be able to do something different.
 
+## 🐳 Using Docker
+
+```console
+docker run -d -p 30000:30000 cborgdb/cborg:0.6.0
+```
+
 ## ⚙️ Build
 
 ```console
@@ -36,7 +42,7 @@ abenhlal@cborgdb:~/cborg/build$ make install
 1) Version
 ```console
 abenhlal@cborgdb:~/cborg/build$ ./cborg --version
-CborgDB v0.3.0
+CborgDB v0.6.0
 
 Maintained by Adil Benhlal <abenhlal@cborgdb.com>
 ```
@@ -63,7 +69,7 @@ CborgDB is running on port 40000.
 3) In another terminal
 ```console
 abenhlal@cborgdb:~/cborg/build$ ./cborg-cli --version
-CborgDB CLI v0.1.0
+CborgDB CLI v0.6.0
 
 Maintained by Adil Benhlal <abenhlal@cborgdb.com>
 abenhlal@cborgdb:~/cborg/build$ ./cborg-cli --help
