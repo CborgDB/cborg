@@ -84,25 +84,20 @@ uint8_t cb_cbor_get_uint8(const uint8_t *item) {
 }
 
 uint16_t cb_cbor_get_uint16(const uint8_t *item) {
-#ifdef IS_BIG_ENDIAN
-  return *((uint16_t*)(item+1));
-#else
-  return cb_bswap16(*((uint16_t*)(item+1)));
-#endif
+  const uint8_t *p = item + 1;
+  return (p[1] << 0) | (p[0] << 8);
 }
 
 uint32_t cb_cbor_get_uint32(const uint8_t *item) {
-#ifdef IS_BIG_ENDIAN
-  return *((uint32_t*)(item+1));
-#else
-  return cb_bswap32(*((uint32_t*)(item+1)));
-#endif
+  const uint8_t *p = item + 1;
+  return (p[3] << 0) | (p[2] << 8) | (p[1] << 16) | (p[0] << 24);
 }
 
 uint64_t cb_cbor_get_uint64(const uint8_t *item) {
-#ifdef IS_BIG_ENDIAN
-  return *((uint64_t*)(item+1));
-#else
-  return cb_bswap64(*((uint64_t*)(item+1)));
-#endif
+  const uint8_t *p = item + 1;
+  return (
+    ((uint64_t)(p[7]) << 0) | ((uint64_t)(p[6]) << 8) |
+    ((uint64_t)(p[5]) << 16) | ((uint64_t)(p[4]) << 24) |
+    ((uint64_t)(p[3]) << 32) | ((uint64_t)(p[2]) << 40) |
+    ((uint64_t)(p[1]) << 48) | ((uint64_t)(p[0]) << 56));
 }
