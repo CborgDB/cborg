@@ -260,7 +260,7 @@ void cb_request_execute_update_one(uint8_t *msg_payload, response_t *res) {
   coll_name[coll_name_len] = 0;
 
   uint8_t *p_item1 = p_coll + cb_cbor_get_uint_size(p_coll) + coll_name_len;
-  uint8_t *p_item2 = p_item1 + cb_cbor_get_uint_size(p_coll);
+  uint8_t *p_item2 = p_item1 + cb_cbor_get_uint_size(p_item1);
 
   char full_path[PATH_MAX + 1];
   snprintf(full_path, sizeof(full_path), "%s/%s/%s", DATABASES_DIRECTORY,
@@ -307,7 +307,7 @@ void cb_request_execute_update_all(uint8_t *msg_payload, response_t *res) {
   coll_name[coll_name_len] = 0;
 
   uint8_t *p_item1 = p_coll + cb_cbor_get_uint_size(p_coll) + coll_name_len;
-  uint8_t *p_item2 = p_item1 + cb_cbor_get_uint_size(p_coll);
+  uint8_t *p_item2 = p_item1 + cb_cbor_get_uint_size(p_item1);
 
   char full_path[PATH_MAX + 1];
   snprintf(full_path, sizeof(full_path), "%s/%s/%s", DATABASES_DIRECTORY,
