@@ -105,10 +105,10 @@ void cb_request_execute_create_collection(uint8_t *msg_payload, response_t *res)
   if(ret == 0) {
     size_t written = cb_cbor_encode_string_definite("Collection created.\n", 20, res->payload, 4096);
     res->msg_length = written + 18;
-  } else if (ret == -1) {
+  } else if (ret == -2) {
     size_t written = cb_cbor_encode_string_definite("Collection already exists.\n", 27, res->payload, 4096);
     res->msg_length = written + 18;
-  } else if (ret == -2){
+  } else if (ret == -1){
     size_t written = cb_cbor_encode_string_definite("Collection cannot created.\n", 27, res->payload, 4096);
     res->msg_length = written + 18;
   }
