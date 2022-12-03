@@ -27,6 +27,8 @@ size_t cb_cbor_encode_string_stop_indef(uint8_t *ev, size_t size);
 
 int cb_cbor_get_string_length(const uint8_t *item, uint64_t *v);
 
+char* cb_cbor_get_string(const uint8_t *item);
+
 ///////////////
 // OPERATORS //
 ///////////////

@@ -3,6 +3,7 @@
  *
  */
 
+#include <stdlib.h>
 #include <string.h>
 
 #include "common/cbor/cb_cbor_string.h"
@@ -53,6 +54,16 @@ size_t cb_cbor_encode_string_stop_indef(uint8_t *ev, size_t size) {
  */ 
 int cb_cbor_get_string_length(const uint8_t *item, uint64_t *v) {
   return cb_cbor_get_uint(item, v);
+}
+
+char* cb_cbor_get_string(const uint8_t *item) {
+  uint64_t len = 0;
+  if(cb_cbor_get_string_length(item, &len) == -1)
+    return NULL;
+  char *s = (char*)malloc(sizeof(char)*len + 1);
+  memcpy(s, item + cb_cbor_get_uint_size(item), len);
+  s[len] = '\0';
+  return s;
 }
 
 ///////////////
