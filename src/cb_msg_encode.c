@@ -30,14 +30,14 @@ static size_t cb_msg_encode(uint8_t *msg, size_t msg_size, uint64_t op_code,
   uint64_t written = 0;
 
   if (op_code != 20) {
-    total_written += written = cb_cbor_encode_string_definite(
+    total_written += written = cb_cbor_encode_string(
         db_name, db_len, msg + total_written, msg_size - total_written);
     if (written == 0)
       return 0;
   }
 
   if (2 < op_code && op_code < 20) {
-    written = cb_cbor_encode_string_definite(
+    written = cb_cbor_encode_string(
         coll_name, coll_len, msg + total_written, msg_size - total_written);
     total_written += written;
 

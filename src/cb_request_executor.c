@@ -42,13 +42,13 @@ void cb_request_execute_create_db(uint8_t *msg_payload, response_t *res) {
   int ret = cb_ops_create_db(db_name);
 
   if(ret == 0) {
-    size_t written = cb_cbor_encode_string_definite("Database created.\n", 18, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Database created.\n", 18, res->payload, 4096);
     res->msg_length = written + 18;
   } else if (ret == -2) {
-    size_t written = cb_cbor_encode_string_definite("Database already exists.\n", 25, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Database already exists.\n", 25, res->payload, 4096);
     res->msg_length = written + 18;
   } else if (ret == -1){
-    size_t written = cb_cbor_encode_string_definite("Database cannot created.\n", 25, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Database cannot created.\n", 25, res->payload, 4096);
     res->msg_length = written + 18;
   }
 }
@@ -68,13 +68,13 @@ void cb_request_execute_drop_db(uint8_t *msg_payload, response_t *res) {
   int ret = cb_ops_drop_db(db_name);
 
   if(ret == 0) {
-    size_t written = cb_cbor_encode_string_definite("Database deleted.\n", 18, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Database deleted.\n", 18, res->payload, 4096);
     res->msg_length = written + 18;
   } else if (ret == -2) {
-    size_t written = cb_cbor_encode_string_definite("Database not exists.\n", 21, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Database not exists.\n", 21, res->payload, 4096);
     res->msg_length = written + 18;
   } else if (ret == -1){
-    size_t written = cb_cbor_encode_string_definite("Database cannot deleted.\n", 25, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Database cannot deleted.\n", 25, res->payload, 4096);
     res->msg_length = written + 18;
   }
 }
@@ -103,13 +103,13 @@ void cb_request_execute_create_collection(uint8_t *msg_payload, response_t *res)
   int ret = cb_ops_create_collection(db_name, coll_name);
 
   if(ret == 0) {
-    size_t written = cb_cbor_encode_string_definite("Collection created.\n", 20, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Collection created.\n", 20, res->payload, 4096);
     res->msg_length = written + 18;
   } else if (ret == -2) {
-    size_t written = cb_cbor_encode_string_definite("Collection already exists.\n", 27, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Collection already exists.\n", 27, res->payload, 4096);
     res->msg_length = written + 18;
   } else if (ret == -1){
-    size_t written = cb_cbor_encode_string_definite("Collection cannot created.\n", 27, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Collection cannot created.\n", 27, res->payload, 4096);
     res->msg_length = written + 18;
   }
 }
@@ -139,13 +139,13 @@ void cb_request_execute_drop_collection(uint8_t *msg_payload, response_t *res) {
   int ret = cb_ops_drop_collection(db_name, coll_name);
 
   if(ret == 0) {
-    size_t written = cb_cbor_encode_string_definite("Collection deleted.\n", 20, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Collection deleted.\n", 20, res->payload, 4096);
     res->msg_length = written + 18;
   } else if (ret == -1) {
-    size_t written = cb_cbor_encode_string_definite("Collection not exists.\n", 23, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Collection not exists.\n", 23, res->payload, 4096);
     res->msg_length = written + 18;
   } else if (ret == -2){
-    size_t written = cb_cbor_encode_string_definite("Collection cannot deleted.\n", 27, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Collection cannot deleted.\n", 27, res->payload, 4096);
     res->msg_length = written + 18;
   }
 }
@@ -181,10 +181,10 @@ void cb_request_execute_insert_one(uint8_t *msg_payload, response_t *res) {
   int ret = cb_ops_insert_one(fd_temp, p_item, cb_cbor_get_uint_size(p_item));
 
   if(ret > 0) {
-    size_t written = cb_cbor_encode_string_definite("Item inserted.\n", 15, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Item inserted.\n", 15, res->payload, 4096);
     res->msg_length = written + 18;
   } else {
-    size_t written = cb_cbor_encode_string_definite("An error has occurred.\n", 23, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("An error has occurred.\n", 23, res->payload, 4096);
     res->msg_length = written + 18;
   }
 
@@ -222,13 +222,13 @@ void cb_request_execute_find_one(uint8_t *msg_payload, response_t *res) {
   int ret = cb_ops_find_one(fd_temp, p_item, cb_cbor_get_uint_size(p_item), 0);
 
   if(ret >= 0) {
-    size_t written = cb_cbor_encode_string_definite("Item found.\n", 12, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Item found.\n", 12, res->payload, 4096);
     res->msg_length = written + 18;
   } else if(ret == -2){
-    size_t written = cb_cbor_encode_string_definite("Item not found.\n", 16, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Item not found.\n", 16, res->payload, 4096);
     res->msg_length = written + 18;
   } else if(ret == -1){
-    size_t written = cb_cbor_encode_string_definite("An error has occurred.\n", 23, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("An error has occurred.\n", 23, res->payload, 4096);
     res->msg_length = written + 18;
   }
 
@@ -269,13 +269,13 @@ void cb_request_execute_update_one(uint8_t *msg_payload, response_t *res) {
   int ret = cb_ops_update_one(fd_temp, p_item1, cb_cbor_get_uint_size(p_item1), p_item2, cb_cbor_get_uint_size(p_item2), 0);
 
   if(ret > 0) {
-    size_t written = cb_cbor_encode_string_definite("Item updated.\n", 14, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Item updated.\n", 14, res->payload, 4096);
     res->msg_length = written + 18;
   } else if(ret == -2){
-    size_t written = cb_cbor_encode_string_definite("Item not found.\n", 16, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Item not found.\n", 16, res->payload, 4096);
     res->msg_length = written + 18;
   } else if(ret == -1){
-    size_t written = cb_cbor_encode_string_definite("An error has occurred.\n", 23, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("An error has occurred.\n", 23, res->payload, 4096);
     res->msg_length = written + 18;
   }
 
@@ -316,13 +316,13 @@ void cb_request_execute_update_all(uint8_t *msg_payload, response_t *res) {
   int ret = cb_ops_update_all(fd_temp, p_item1, cb_cbor_get_uint_size(p_item1), p_item2, cb_cbor_get_uint_size(p_item2), 0);
 
   if(ret > 0) {
-    size_t written = cb_cbor_encode_string_definite("Items updated.\n", 14, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Items updated.\n", 14, res->payload, 4096);
     res->msg_length = written + 18;
   } else if(ret == -2){
-    size_t written = cb_cbor_encode_string_definite("Item not found.\n", 16, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Item not found.\n", 16, res->payload, 4096);
     res->msg_length = written + 18;
   } else if(ret == -1){
-    size_t written = cb_cbor_encode_string_definite("An error has occurred.\n", 23, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("An error has occurred.\n", 23, res->payload, 4096);
     res->msg_length = written + 18;
   }
 
@@ -360,13 +360,13 @@ void cb_request_execute_delete_one(uint8_t *msg_payload, response_t *res) {
   int ret = cb_ops_delete_one(fd_temp, p_item, cb_cbor_get_uint_size(p_item));
 
   if(ret > 0) {
-    size_t written = cb_cbor_encode_string_definite("Item deleted.\n", 14, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Item deleted.\n", 14, res->payload, 4096);
     res->msg_length = written + 18;
   } else if(ret == -2){
-    size_t written = cb_cbor_encode_string_definite("Item not found.\n", 16, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Item not found.\n", 16, res->payload, 4096);
     res->msg_length = written + 18;
   } else if(ret == -1){
-    size_t written = cb_cbor_encode_string_definite("An error has occurred.\n", 23, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("An error has occurred.\n", 23, res->payload, 4096);
     res->msg_length = written + 18;
   }
 
@@ -404,13 +404,13 @@ void cb_request_execute_delete_all(uint8_t *msg_payload, response_t *res) {
   int ret = cb_ops_delete_all(fd_temp, p_item, cb_cbor_get_uint_size(p_item));
 
   if(ret > 0) {
-    size_t written = cb_cbor_encode_string_definite("Items deleted.\n", 15, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Items deleted.\n", 15, res->payload, 4096);
     res->msg_length = written + 18;
   } else if(ret == -2){
-    size_t written = cb_cbor_encode_string_definite("Item not found.\n", 16, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("Item not found.\n", 16, res->payload, 4096);
     res->msg_length = written + 18;
   } else if(ret == -1){
-    size_t written = cb_cbor_encode_string_definite("An error has occurred.\n", 23, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("An error has occurred.\n", 23, res->payload, 4096);
     res->msg_length = written + 18;
   }
 
@@ -429,12 +429,12 @@ void cb_request_execute_list_dbs(uint8_t *msg_payload, response_t *res) {
   if(ret == 0){
     res->msg_length = 0;
     for(size_t i = 0; i < list_size; i++){
-      size_t written = cb_cbor_encode_string_definite(list[i], strlen(list[i]), res->payload + res->msg_length, 4096 - res->msg_length);
+      size_t written = cb_cbor_encode_string(list[i], strlen(list[i]), res->payload + res->msg_length, 4096 - res->msg_length);
       res->msg_length += written;
     }
     res->msg_length += 18;
   } else {
-    size_t written = cb_cbor_encode_string_definite("An error has occurred.\n", 23, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("An error has occurred.\n", 23, res->payload, 4096);
     res->msg_length = written + 18;
   }
   cb_fs_list_free(list, list_size);
@@ -461,12 +461,12 @@ void cb_request_execute_list_collections(uint8_t *msg_payload, response_t *res) 
   if(ret == 0){
     res->msg_length = 0;
     for(size_t i = 0; i < list_size; i++){
-      size_t written = cb_cbor_encode_string_definite(list[i], strlen(list[i]), res->payload + res->msg_length, 4096 - res->msg_length);
+      size_t written = cb_cbor_encode_string(list[i], strlen(list[i]), res->payload + res->msg_length, 4096 - res->msg_length);
       res->msg_length += written;
     }
     res->msg_length += 18;
   } else {
-    size_t written = cb_cbor_encode_string_definite("An error has occurred.\n", 23, res->payload, 4096);
+    size_t written = cb_cbor_encode_string("An error has occurred.\n", 23, res->payload, 4096);
     res->msg_length = written + 18;
   }
   cb_fs_list_free(list, list_size);
@@ -511,7 +511,7 @@ void cb_request_executor(request_t *req, response_t *res) {
     cb_request_execute_list_collections(req->payload, res);
     break;
   default: {
-    size_t written = cb_cbor_encode_string_definite("Unknown op_code.\n", 17,
+    size_t written = cb_cbor_encode_string("Unknown op_code.\n", 17,
                                                   res->payload, 4096);
     res->msg_length = written + 18;
   } break;

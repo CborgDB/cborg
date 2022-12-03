@@ -16,14 +16,14 @@ void test_cb_cbor_encode_string() {
   // 0xEF at the end expects no change
   uint8_t expected_ev_zero[7] = {0x60, 0xEF};
 
-  assert(cb_cbor_encode_string_definite("", 0, ev_zero, 109) == 1);
+  assert(cb_cbor_encode_string("", 0, ev_zero, 109) == 1);
   assert(memcmp(ev_zero, expected_ev_zero, 2) == 0);
 
   uint8_t ev_one_byte[109] = {0xEF, 0xEF, 0xEF, 0xEF, 0xEF, 0xEF, 0xEF};
   // 0xEF at the end expects no change
   uint8_t expected_ev_one_byte[7] = {0x65, 0x48, 0x65, 0x6C, 0x6C, 0x6F, 0xEF};
 
-  assert(cb_cbor_encode_string_definite("Hello", 5, ev_one_byte, 109) == 6);
+  assert(cb_cbor_encode_string("Hello", 5, ev_one_byte, 109) == 6);
   assert(memcmp(ev_one_byte, expected_ev_one_byte, 7) == 0);
 
   uint8_t ev[109] = {0xEF, 0xEF, 0xEF, 0xEF, 0xEF, 0xEF, 0xEF, 0xEF, 0xEF,
@@ -36,7 +36,7 @@ void test_cb_cbor_encode_string() {
       0x64, 0x20, 0x21, 0x20, 0x43, 0x62, 0x6F, 0x72, 0x67, 0x44, 0x42, 0x20,
       0x69, 0x73, 0x20, 0x68, 0x65, 0x72, 0x65, 0x20, 0x21, 0xEF};
 
-  assert(cb_cbor_encode_string_definite("Hello world ! CborgDB is here !", 31,
+  assert(cb_cbor_encode_string("Hello world ! CborgDB is here !", 31,
                                         ev, 109) == 33);
   assert(memcmp(ev, expected_ev, 34) == 0);
 }
@@ -47,7 +47,7 @@ void test_cb_cbor_get_string_length() {
   // 0xEF at the end expects no change
   uint8_t expected_ev_zero[7] = {0x60, 0xEF};
 
-  assert(cb_cbor_encode_string_definite("", 0, ev_zero, 109) == 1);
+  assert(cb_cbor_encode_string("", 0, ev_zero, 109) == 1);
   assert(memcmp(ev_zero, expected_ev_zero, 2) == 0);
 
   uint64_t ev_len_zero;
@@ -58,7 +58,7 @@ void test_cb_cbor_get_string_length() {
   // 0xEF at the end expects no change
   uint8_t expected_ev_one_byte[7] = {0x65, 0x48, 0x65, 0x6C, 0x6C, 0x6F, 0xEF};
 
-  assert(cb_cbor_encode_string_definite("Hello", 5, ev_one_byte, 109) == 6);
+  assert(cb_cbor_encode_string("Hello", 5, ev_one_byte, 109) == 6);
   assert(memcmp(ev_one_byte, expected_ev_one_byte, 7) == 0);
 
   uint64_t ev_len_one_byte;
@@ -75,7 +75,7 @@ void test_cb_cbor_get_string_length() {
       0x64, 0x20, 0x21, 0x20, 0x43, 0x62, 0x6F, 0x72, 0x67, 0x44, 0x42, 0x20,
       0x69, 0x73, 0x20, 0x68, 0x65, 0x72, 0x65, 0x20, 0x21, 0xEF};
 
-  assert(cb_cbor_encode_string_definite("Hello world ! CborgDB is here !", 31,
+  assert(cb_cbor_encode_string("Hello world ! CborgDB is here !", 31,
                                         ev, 109) == 33);
   assert(memcmp(ev, expected_ev, 34) == 0);
 
@@ -88,41 +88,41 @@ void test_cb_cbor_string_cmp() {
   uint8_t ev_a[109];
   uint8_t ev_b[109];
   // EQUAL
-  assert(cb_cbor_encode_string_definite("", 0, ev_a, 109) == 1);
-  assert(cb_cbor_encode_string_definite("", 0, ev_b, 109) == 1);
+  assert(cb_cbor_encode_string("", 0, ev_a, 109) == 1);
+  assert(cb_cbor_encode_string("", 0, ev_b, 109) == 1);
   assert(cb_cbor_string_cmp(ev_a, ev_b) == 0);
 
-  assert(cb_cbor_encode_string_definite("Hello", 5, ev_a, 109) == 6);
-  assert(cb_cbor_encode_string_definite("Hello", 5, ev_b, 109) == 6);
+  assert(cb_cbor_encode_string("Hello", 5, ev_a, 109) == 6);
+  assert(cb_cbor_encode_string("Hello", 5, ev_b, 109) == 6);
   assert(cb_cbor_string_cmp(ev_a, ev_b) == 0);
 
-  assert(cb_cbor_encode_string_definite("Hello world ! CborgDB is here !", 31,
+  assert(cb_cbor_encode_string("Hello world ! CborgDB is here !", 31,
                                         ev_a, 109) == 33);
-  assert(cb_cbor_encode_string_definite("Hello world ! CborgDB is here !", 31,
+  assert(cb_cbor_encode_string("Hello world ! CborgDB is here !", 31,
                                         ev_b, 109) == 33);
   assert(cb_cbor_string_cmp(ev_a, ev_b) == 0);
 
   // LESS THAN / GREATER THAN
-  assert(cb_cbor_encode_string_definite("Hell", 4, ev_a, 109) == 5);
-  assert(cb_cbor_encode_string_definite("Hello", 5, ev_b, 109) == 6);
+  assert(cb_cbor_encode_string("Hell", 4, ev_a, 109) == 5);
+  assert(cb_cbor_encode_string("Hello", 5, ev_b, 109) == 6);
   assert(cb_cbor_string_cmp(ev_a, ev_b) == -1); // lt
   assert(cb_cbor_string_cmp(ev_b, ev_a) == 1); // gt
 
-  assert(cb_cbor_encode_string_definite("Helln", 5, ev_a, 109) == 6);
-  assert(cb_cbor_encode_string_definite("Hello", 5, ev_b, 109) == 6);
+  assert(cb_cbor_encode_string("Helln", 5, ev_a, 109) == 6);
+  assert(cb_cbor_encode_string("Hello", 5, ev_b, 109) == 6);
   assert(cb_cbor_string_cmp(ev_a, ev_b) == -1); // lt
   assert(cb_cbor_string_cmp(ev_b, ev_a) == 1); // gt
 
-  assert(cb_cbor_encode_string_definite("Hello world ! CborgDB is here", 29,
+  assert(cb_cbor_encode_string("Hello world ! CborgDB is here", 29,
                                         ev_a, 109) == 31);
-  assert(cb_cbor_encode_string_definite("Hello world ! CborgDB is here !", 31,
+  assert(cb_cbor_encode_string("Hello world ! CborgDB is here !", 31,
                                         ev_b, 109) == 33);
   assert(cb_cbor_string_cmp(ev_a, ev_b) == -1); // lt
   assert(cb_cbor_string_cmp(ev_b, ev_a) == 1); // gt
 
-  assert(cb_cbor_encode_string_definite("Hello world ! CborgDB is herd", 29,
+  assert(cb_cbor_encode_string("Hello world ! CborgDB is herd", 29,
                                         ev_a, 109) == 31);
-  assert(cb_cbor_encode_string_definite("Hello world ! CborgDB is here", 29,
+  assert(cb_cbor_encode_string("Hello world ! CborgDB is here", 29,
                                         ev_b, 109) == 31);
   assert(cb_cbor_string_cmp(ev_a, ev_b) == -1); // lt
   assert(cb_cbor_string_cmp(ev_b, ev_a) == 1); // gt
