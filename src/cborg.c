@@ -8,7 +8,7 @@
 #define _GNU_SOURCE
 #include <linux/limits.h> // PATH_MAX
 
-#elif __APPLE__
+#elif __APPLE__ || __OpenBSD__ || __FreeBSD__ || __NetBSD__ || BSD
 
 #include <sys/event.h>
 #include <sys/time.h>
