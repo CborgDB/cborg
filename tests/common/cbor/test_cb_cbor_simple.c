@@ -10,7 +10,46 @@
 
 #include "common/cbor/cb_cbor_simple.h"
 
-// INT
+void test_cb_cbor_encode_false() {
+  // TEST 1
+  // test with size == 0 (no change)
+  uint8_t ev_t1_s0[2] = {0x00, 0x00}; // encoded value
+  uint8_t expect_t1_s0[2] = {0x00, 0x00}; // [ 0x00, 0x00 ]
+  assert(cb_cbor_encode_false(ev_t1_s0, 0) == 0);
+  assert(memcmp(expect_t1_s0, ev_t1_s0, 2) == 0);
+
+  // test with size == 1
+  uint8_t ev_t1_s1[2] = {0x00, 0x00}; // encoded value
+  uint8_t expect_t1_s1[2] = {0xF4, 0x00}; // [ false, 0x00 ]
+  assert(cb_cbor_encode_false(ev_t1_s1, 1) == 1);
+  assert(memcmp(expect_t1_s1, ev_t1_s1, 2) == 0);
+
+  // test with size == 2
+  uint8_t ev_t1_s2[2] = {0x00, 0x00}; // encoded value
+  uint8_t expect_t1_s2[2] = {0xF4, 0x00}; // [ false, 0x00 ]
+  assert(cb_cbor_encode_false(ev_t1_s2, 2) == 1);
+  assert(memcmp(expect_t1_s2, ev_t1_s2, 2) == 0);
+
+  // TEST 2 (same test with another end byte)
+  // test with size == 0 (no change)
+  uint8_t ev_t2_s0[2] = {0x00, 0xAB}; // encoded value
+  uint8_t expect_t2_s0[2] = {0x00, 0xAB}; // [ 0x00, 0xAB ]
+  assert(cb_cbor_encode_false(ev_t2_s0, 0) == 0);
+  assert(memcmp(expect_t2_s0, ev_t2_s0, 2) == 0);
+
+  // test with size == 1
+  uint8_t ev_t2_s1[2] = {0xFF, 0xAB}; // encoded value
+  uint8_t expect_t2_s1[2] = {0xF4, 0xAB}; // [ false, 0xAB ]
+  assert(cb_cbor_encode_false(ev_t2_s1, 1) == 1);
+  assert(memcmp(expect_t2_s1, ev_t2_s1, 2) == 0);
+
+  // test with size == 2
+  uint8_t ev_t2_s2[2] = {0xFF, 0xAB}; // encoded value
+  uint8_t expect_t2_s2[2] = {0xF4, 0xAB}; // [ false, 0xAB ]
+  assert(cb_cbor_encode_false(ev_t2_s2, 2) == 1);
+  assert(memcmp(expect_t2_s2, ev_t2_s2, 2) == 0);
+}
+
 void test_cb_cbor_encode_null() {
   // TEST 1
   // test with size == 0 (no change)
@@ -49,7 +88,6 @@ void test_cb_cbor_encode_null() {
   uint8_t expect_t2_s2[2] = {0xF6, 0xAB}; // [ null, 0xAB ]
   assert(cb_cbor_encode_null(ev_t2_s2, 2) == 1);
   assert(memcmp(expect_t2_s2, ev_t2_s2, 2) == 0);
-
 }
 
 void test_cb_cbor_encode_break() {
@@ -90,11 +128,11 @@ void test_cb_cbor_encode_break() {
   uint8_t expect_t2_s2[2] = {0xFF, 0xAB}; // [ break, 0xAB ]
   assert(cb_cbor_encode_break(ev_t2_s2, 2) == 1);
   assert(memcmp(expect_t2_s2, ev_t2_s2, 2) == 0);
-
 }
 
 // TODO: criterion or cmocka
 int main() {
+  test_cb_cbor_encode_false();
   test_cb_cbor_encode_null();
   test_cb_cbor_encode_break();
 
