@@ -1,0 +1,33 @@
+name: ⭐️ Slack notify on star
+on:
+  watch:
+    types: [started]
+jobs:
+  star-notify:
+    name: Slack notify on star
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get total stars
+      id: stars
+      run: |
+        echo "STARGAZERS_COUNT=$(curl -H "Accept: application/vnd.github+json" https://api.github.com/repos/cborgdb/cborg | jq '.stargazers_count')" >> $GITHUB_OUTPUT
+    - name: Post to a Slack channel
+      id: slack
+      uses: slackapi/slack-github-action@v1.23.0
+      with:
+        channel-id: ${{ secrets.SLACK_STARGAZERS_CHANNEL_ID }}
+        payload: |
+          {
+            "text": ":tada: New Github star for `cborgdb/cborg` repo!\n The *cborg* repo now has *${{ steps.stars.outputs.STARGAZERS_COUNT }}* :star2: stars !\n Your new fan is *<https://github.com/${{ github.actor }}|${{ github.actor }}>* !",
+            "blocks": [
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": ":tada: New Github star for `cborgdb/cborg` repo!\n The *cborg* repo now has *${{ steps.stars.outputs.STARGAZERS_COUNT }}* :star2: stars !\n Your new fan is *<https://github.com/${{ github.actor }}|${{ github.actor }}>* !"
+                }
+              }
+            ]
+          }
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
