@@ -44,6 +44,8 @@ add_executable(test_cb_ops "${CMAKE_SOURCE_DIR}/tests/test_cb_ops.c" "${CMAKE_SO
 add_test(NAME test_cb_ops COMMAND test_cb_ops)
 add_executable(test_cb_cbor_string "${CMAKE_SOURCE_DIR}/tests/common/cbor/test_cb_cbor_string.c" "${CMAKE_SOURCE_DIR}/src/common/cbor/cb_cbor_string.c" "${CMAKE_SOURCE_DIR}/src/common/cbor/cb_cbor_simple.c" "${CMAKE_SOURCE_DIR}/src/common/cbor/cb_cbor_int.c" "${CMAKE_SOURCE_DIR}/src/common/cbor/cb_cbor.c" "${CMAKE_SOURCE_DIR}/src/common/cb_endianness.c")
 add_test(NAME test_cb_cbor_string COMMAND test_cb_cbor_string)
+add_executable(test_cb_cbor_array "${CMAKE_SOURCE_DIR}/tests/common/cbor/test_cb_cbor_array.c" "${CMAKE_SOURCE_DIR}/src/common/cbor/cb_cbor_array.c" "${CMAKE_SOURCE_DIR}/src/common/cbor/cb_cbor_int.c" "${CMAKE_SOURCE_DIR}/src/common/cbor/cb_cbor.c" "${CMAKE_SOURCE_DIR}/src/common/cbor/cb_cbor_simple.c" "${CMAKE_SOURCE_DIR}/src/common/cb_endianness.c")
+add_test(NAME test_cb_cbor_array COMMAND test_cb_cbor_array)
 
 # INSTALL CBORG
 install(TARGETS cborg DESTINATION ${CMAKE_INSTALL_BINDIR})
