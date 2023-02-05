@@ -1,6 +1,6 @@
 
-#include "cli/cb_cli_opt.h"
-#include "cli/cb_cli_version.h"
+#include "tools/cli/cb_cli_opt.h"
+#include "tools/cli/cb_cli_version.h"
 
 #include <stdio.h>
 #include <stdlib.h>

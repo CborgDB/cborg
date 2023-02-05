@@ -24,12 +24,12 @@
 #include "common/cbor/cb_cbor.h"
 #include "common/cbor/cb_cbor_int.h"
 #include "common/cbor/cb_cbor_string.h"
-#include "cli/cb_cli_help.h"
-#include "cli/cb_cli_interpreter.h"
-#include "cli/cb_cli_parser.h"
-#include "cli/cb_cli_scanner.h"
-#include "cli/cb_cli_token.h"
-#include "cli/cb_cli_opt.h"
+#include "tools/cli/cb_cli_help.h"
+#include "tools/cli/cb_cli_interpreter.h"
+#include "tools/cli/cb_cli_parser.h"
+#include "tools/cli/cb_cli_scanner.h"
+#include "tools/cli/cb_cli_token.h"
+#include "tools/cli/cb_cli_opt.h"
 
 int init_socket() {
   int fd;

@@ -3,7 +3,7 @@
  *
  */
 
-#include "cli/cb_cli_scanner.h"
+#include "tools/cli/cb_cli_scanner.h"
 
 scanner_t scanner_init(char *p_start, int p_len) {
   return (scanner_t){

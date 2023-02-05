@@ -4,7 +4,7 @@ project(cborg VERSION 0.6.0 LANGUAGES C) # x-release-please-version
 configure_file(${CMAKE_SOURCE_DIR}/include/version.h.in ${CMAKE_BINARY_DIR}/include/version.h @ONLY)
 
 project(cborg-cli VERSION 0.6.0 LANGUAGES C) # x-release-please-version
-configure_file(${CMAKE_SOURCE_DIR}/include/cli/cb_cli_version.h.in ${CMAKE_BINARY_DIR}/include/cli/cb_cli_version.h @ONLY)
+configure_file(${CMAKE_SOURCE_DIR}/include/tools/cli/cb_cli_version.h.in ${CMAKE_BINARY_DIR}/include/tools/cli/cb_cli_version.h @ONLY)
 
 # BUILD
 set(CMAKE_C_FLAGS "-std=c99 -Wall -Wextra -pedantic")
@@ -23,7 +23,7 @@ file(GLOB_RECURSE SRC "${CMAKE_SOURCE_DIR}/src/**.c")
 set(SRC_SERVER ${SRC})
 set(SRC_CLI ${SRC})
 
-list(REMOVE_ITEM SRC_SERVER "${CMAKE_SOURCE_DIR}/src/cli/cborg-cli.c" "${CMAKE_SOURCE_DIR}/src/cli/cb_cli_opt.c")
+list(REMOVE_ITEM SRC_SERVER "${CMAKE_SOURCE_DIR}/src/tools/cli/cborg-cli.c" "${CMAKE_SOURCE_DIR}/src/tools/cli/cb_cli_opt.c")
 list(REMOVE_ITEM SRC_CLI "${CMAKE_SOURCE_DIR}/src/cborg.c" "${CMAKE_SOURCE_DIR}/src/cb_opt.c")
 
 include_directories(${CMAKE_SOURCE_DIR}/include ${CMAKE_BINARY_DIR}/include)

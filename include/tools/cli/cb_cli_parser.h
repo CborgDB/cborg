@@ -6,7 +6,7 @@
 #ifndef _CB_CLI_PARSER_H
 #define _CB_CLI_PARSER_H
 
-#include "cli/cb_cli_scanner.h"
+#include "tools/cli/cb_cli_scanner.h"
 /**
  * Grammar
  * 

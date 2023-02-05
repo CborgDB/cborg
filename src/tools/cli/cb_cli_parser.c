@@ -3,7 +3,7 @@
  *
  */
 
-#include "cli/cb_cli_parser.h"
+#include "tools/cli/cb_cli_parser.h"
 
 #include <stdio.h>
 

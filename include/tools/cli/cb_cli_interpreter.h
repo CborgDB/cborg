@@ -6,7 +6,7 @@
 #ifndef _CB_CLI_INTERPRETER_H
 #define _CB_CLI_INTERPRETER_H
 
-#include "cli/cb_cli_parser.h"
+#include "tools/cli/cb_cli_parser.h"
 
 #include <stddef.h>
 
