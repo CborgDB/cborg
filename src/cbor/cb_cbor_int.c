@@ -3,8 +3,8 @@
  *
  */
 
-#include "common/cbor/cb_cbor.h"
-#include "common/cbor/cb_cbor_int.h"
+#include "cbor/cb_cbor.h"
+#include "cbor/cb_cbor_int.h"
 
 //////////////
 // ENCODING //

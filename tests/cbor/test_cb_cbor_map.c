@@ -8,8 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "common/cbor/cb_cbor_map.h"
-#include "common/cbor/cb_cbor_int.h"
+#include "cbor/cb_cbor_map.h"
+#include "cbor/cb_cbor_int.h"
 
 void test_cb_cbor_map() {
   uint8_t ev_map[5] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF}; // encoded value

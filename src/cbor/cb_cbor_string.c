@@ -6,10 +6,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "common/cbor/cb_cbor_string.h"
-#include "common/cbor/cb_cbor_simple.h"
-#include "common/cbor/cb_cbor_int.h"
-#include "common/cbor/cb_cbor.h"
+#include "cbor/cb_cbor_string.h"
+#include "cbor/cb_cbor_simple.h"
+#include "cbor/cb_cbor_int.h"
+#include "cbor/cb_cbor.h"
 
 //////////////
 // ENCODING //

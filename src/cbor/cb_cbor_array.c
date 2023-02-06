@@ -3,8 +3,8 @@
  *
  */
 
-#include "common/cbor/cb_cbor_simple.h"
-#include "common/cbor/cb_cbor.h"
+#include "cbor/cb_cbor_simple.h"
+#include "cbor/cb_cbor.h"
 
 size_t cb_cbor_encode_array_start(uint8_t *ev, size_t len, size_t size) {
   return _cb_cbor_encode_uint(len, ev, size, 0x80);

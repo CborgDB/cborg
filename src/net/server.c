@@ -3,7 +3,7 @@
  * 
  */
 
-#include "common/net/server.h"
+#include "net/server.h"
 
 #include <netinet/in.h>
 #include <unistd.h>

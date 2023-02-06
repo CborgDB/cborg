@@ -3,7 +3,7 @@
  *
  */
 
-#include "common/cbor/cb_cbor_simple.h"
+#include "cbor/cb_cbor_simple.h"
 
 size_t cb_cbor_encode_false(uint8_t *ev, size_t size) {
   if (size >= 1) {

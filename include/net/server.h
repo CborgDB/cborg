@@ -12,7 +12,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "common/net/socket.h"
+#include "net/socket.h"
 
 typedef struct server_t {
   socket_t socket;

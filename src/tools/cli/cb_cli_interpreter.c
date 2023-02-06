@@ -6,7 +6,7 @@
 #include "tools/cli/cb_cli_interpreter.h"
 #include "cb_msg_encode.h"
 #include "tools/cli/cb_cli_help.h"
-#include "common/cbor/cb_cbor_int.h"
+#include "cbor/cb_cbor_int.h"
 
 #include <errno.h>
 #include <stdio.h>

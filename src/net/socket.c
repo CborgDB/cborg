@@ -8,7 +8,7 @@
 #include <netinet/in.h>
 #include <unistd.h>
 
-#include "common/net/socket.h"
+#include "net/socket.h"
 
 #define h_addr h_addr_list[0]
 

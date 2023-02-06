@@ -8,8 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "common/cbor/cb_cbor_array.h"
-#include "common/cbor/cb_cbor_int.h"
+#include "cbor/cb_cbor_array.h"
+#include "cbor/cb_cbor_int.h"
 
 void test_cb_cbor_array() {
   uint8_t ev_array[4] = {0xFF, 0xFF, 0xFF, 0xFF}; // encoded value

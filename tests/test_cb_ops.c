@@ -12,7 +12,7 @@
 #include <string.h>
 
 #include "common/cb_fs.h"
-#include "common/cbor/cb_cbor_int.h"
+#include "cbor/cb_cbor_int.h"
 #include "cb_ops.h"
 
 int fd_uint;
