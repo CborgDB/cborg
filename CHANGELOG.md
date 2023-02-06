@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.7.0](https://github.com/CborgDB/cborg/compare/v0.6.0...v0.7.0) (2023-02-06)
+
+
+### Features
+
+* **cbor:** add encode array start, indef and break ([85b0ebc](https://github.com/CborgDB/cborg/commit/85b0ebc277884abe054831afbd5ab3087389ae37))
+* **cbor:** add encode bytestring ([c66a0a6](https://github.com/CborgDB/cborg/commit/c66a0a6e92ce1fdd438261f3aaee5d9bde725b9f))
+* **cbor:** add encode false, true, undefined and break ([69b9143](https://github.com/CborgDB/cborg/commit/69b91435648846120aea8fab7718784b0337fec2))
+* **cbor:** add encode map start, indef and break ([254d650](https://github.com/CborgDB/cborg/commit/254d650b7f266825e5a30f44c7b91e14ba3af8b3))
+* **cbor:** add encode string indef and rename def ([f1282a2](https://github.com/CborgDB/cborg/commit/f1282a25c501147a93ff079069eba464d91a3992))
+* **cbor:** cbor_get_string function ([b38d864](https://github.com/CborgDB/cborg/commit/b38d8643fc075b2f4081c55d2540f4d5a8afb423))
+
+
+### Bug Fixes
+
+* include for bsd systems ([dec9b01](https://github.com/CborgDB/cborg/commit/dec9b01856360c05377e3e2eabeb10a425934f93))
+
 ## [0.6.0](https://github.com/CborgDB/cborg/compare/v0.5.0...v0.6.0) (2022-11-01)
 
 
